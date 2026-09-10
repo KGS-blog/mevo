@@ -1,158 +1,345 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Web GAS & Google Sheets</title>
-  <!-- Framework CSS Tailwind untuk Tampilan -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<title>Klien Dashboard — Quota Management | MEVO</title>
+<meta name="description" content="MEVO client dashboard for quota management: monitor fieldwork progress, quota cells, and completion status across cities.">
 </head>
-<body class="bg-slate-100 min-h-screen p-4 md:p-8 font-sans">
+<body>
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" aria-label="MEVO home">ME<span>VO</span></a>
+    <nav class="nav-menu" aria-label="Main navigation">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="process.html" class="nav-link">Process</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="quota_management.html" class="nav-link active">Klien Dashboard</a>
+      <a href="contact.html" class="btn-primary nav-cta">Discuss Your Study</a>
+    </nav>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+    </button>
+  </div>
+</header>
 
-  <div class="max-w-4xl mx-auto space-y-8">
-    
-    <!-- HEADER -->
-    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-      <h1 class="text-2xl font-bold text-slate-800">Formulir Input Data</h1>
-      <p class="text-slate-500 text-sm mt-1">Data yang diisi akan tersimpan langsung ke Google Sheets melalui Google Apps Script.</p>
+<nav class="nav-mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-mobile-link">Home</a>
+  <a href="services.html" class="nav-mobile-link">Services</a>
+  <a href="about.html" class="nav-mobile-link">About</a>
+  <a href="process.html" class="nav-mobile-link">Process</a>
+  <a href="faq.html" class="nav-mobile-link">FAQ</a>
+  <a href="quota_management.html" class="nav-mobile-link active">Klien Dashboard</a>
+  <a href="contact.html" class="btn-primary" style="margin-top:24px">Discuss Your Study</a>
+</nav>
+
+<section class="page-hero" style="padding-bottom:56px">
+  <div class="container page-hero-inner">
+    <div class="divider-badge reveal"></div>
+    <h1 class="reveal" style="transition-delay:.1s">Klien Dashboard</h1>
+    <p class="reveal" style="transition-delay:.2s">Quota management — monitor fieldwork progress per quota cell, in real time.</p>
+    <div class="study-meta reveal" style="transition-delay:.3s;margin-top:24px">
+      <span>Study: <strong>PT Demo FMCG — Product Test 2026</strong></span>
+      <span>Period: <strong>1 – 30 Sep 2026</strong></span>
+      <span>Status: <strong>In Field</strong></span>
+      <span>Last updated: <strong id="lastUpdated">—</strong></span>
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="container">
+
+    <div class="summary-cards">
+      <div class="summary-card reveal" style="transition-delay:.05s">
+        <div class="summary-label">Total Target</div>
+        <div class="summary-value">620</div>
+        <div class="summary-sub">Respondents across 16 quota cells</div>
+      </div>
+      <div class="summary-card reveal" style="transition-delay:.1s">
+        <div class="summary-label">Completed</div>
+        <div class="summary-value">495</div>
+        <div class="summary-sub">125 remaining</div>
+      </div>
+      <div class="summary-card reveal" style="transition-delay:.15s">
+        <div class="summary-label">Completion</div>
+        <div class="summary-value">80%</div>
+        <div class="summary-sub"><span class="progress-track" style="width:100%"><span class="progress-fill" style="width:80%"></span></span></div>
+      </div>
+      <div class="summary-card reveal" style="transition-delay:.2s">
+        <div class="summary-label">Est. Completion</div>
+        <div class="summary-value" style="font-size:24px;padding-top:6px">24 Sep 2026</div>
+        <div class="summary-sub">On schedule · 4 days ahead of deadline</div>
+      </div>
     </div>
 
-    <!-- FORM INPUT (POST) -->
-    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-      <form id="dataForm" onsubmit="submitData(event)" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-          <input type="text" id="nama" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800" placeholder="Masukkan nama">
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Alamat Email</label>
-          <input type="email" id="email" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800" placeholder="nama@email.com">
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Pesan / Catatan</label>
-          <textarea id="pesan" rows="3" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800" placeholder="Tuliskan pesan..."></textarea>
-        </div>
-
-        <button type="submit" id="btnSubmit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2">
-          <span>Kirim Data</span>
-        </button>
-      </form>
-
-      <!-- Status Notifikasi -->
-      <div id="statusMessage" class="hidden mt-4 p-3 rounded-lg text-sm text-center"></div>
+    <div class="filter-tabs reveal" role="tablist" aria-label="Filter by city">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">Semua Kota</button>
+      <button class="filter-tab" data-filter="jakarta" role="tab" aria-selected="false">Jakarta</button>
+      <button class="filter-tab" data-filter="medan" role="tab" aria-selected="false">Medan</button>
+      <button class="filter-tab" data-filter="makassar" role="tab" aria-selected="false">Makassar</button>
+      <button class="filter-tab" data-filter="surabaya" role="tab" aria-selected="false">Surabaya</button>
     </div>
 
-    <!-- TABEL DATA (GET) -->
-    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-bold text-slate-800">Data Terdaftar</h2>
-        <button onclick="loadData()" class="text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-300 transition-colors">
-          Refresh Data
-        </button>
-      </div>
+    <div class="quota-table-wrap reveal">
+      <table class="quota-table">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>Gender</th>
+            <th>Age Group</th>
+            <th>Target</th>
+            <th>Completed</th>
+            <th>Remaining</th>
+            <th>Progress</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-city="jakarta">
+            <td class="cell-group">Jakarta</td>
+            <td>Female</td>
+            <td>25–34</td>
+            <td>50</td>
+            <td>50</td>
+            <td>0</td>
+            <td><span class="progress-track"><span class="progress-fill complete" style="width:100%"></span></span>&nbsp; 100%</td>
+            <td><span class="status-badge complete">Complete</span></td>
+          </tr>
+          <tr data-city="jakarta">
+            <td class="cell-group">Jakarta</td>
+            <td>Female</td>
+            <td>35–44</td>
+            <td>50</td>
+            <td>44</td>
+            <td>6</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:88%"></span></span>&nbsp; 88%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="jakarta">
+            <td class="cell-group">Jakarta</td>
+            <td>Male</td>
+            <td>25–34</td>
+            <td>50</td>
+            <td>31</td>
+            <td>19</td>
+            <td><span class="progress-track"><span class="progress-fill risk" style="width:62%"></span></span>&nbsp; 62%</td>
+            <td><span class="status-badge risk">At Risk</span></td>
+          </tr>
+          <tr data-city="jakarta">
+            <td class="cell-group">Jakarta</td>
+            <td>Male</td>
+            <td>35–44</td>
+            <td>50</td>
+            <td>38</td>
+            <td>12</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:76%"></span></span>&nbsp; 76%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="medan">
+            <td class="cell-group">Medan</td>
+            <td>Female</td>
+            <td>25–34</td>
+            <td>40</td>
+            <td>36</td>
+            <td>4</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:90%"></span></span>&nbsp; 90%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="medan">
+            <td class="cell-group">Medan</td>
+            <td>Female</td>
+            <td>35–44</td>
+            <td>40</td>
+            <td>40</td>
+            <td>0</td>
+            <td><span class="progress-track"><span class="progress-fill complete" style="width:100%"></span></span>&nbsp; 100%</td>
+            <td><span class="status-badge complete">Complete</span></td>
+          </tr>
+          <tr data-city="medan">
+            <td class="cell-group">Medan</td>
+            <td>Male</td>
+            <td>25–34</td>
+            <td>40</td>
+            <td>22</td>
+            <td>18</td>
+            <td><span class="progress-track"><span class="progress-fill risk" style="width:55%"></span></span>&nbsp; 55%</td>
+            <td><span class="status-badge risk">At Risk</span></td>
+          </tr>
+          <tr data-city="medan">
+            <td class="cell-group">Medan</td>
+            <td>Male</td>
+            <td>35–44</td>
+            <td>40</td>
+            <td>33</td>
+            <td>7</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:82%"></span></span>&nbsp; 82%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="makassar">
+            <td class="cell-group">Makassar</td>
+            <td>Female</td>
+            <td>25–34</td>
+            <td>30</td>
+            <td>18</td>
+            <td>12</td>
+            <td><span class="progress-track"><span class="progress-fill risk" style="width:60%"></span></span>&nbsp; 60%</td>
+            <td><span class="status-badge risk">At Risk</span></td>
+          </tr>
+          <tr data-city="makassar">
+            <td class="cell-group">Makassar</td>
+            <td>Female</td>
+            <td>35–44</td>
+            <td>30</td>
+            <td>25</td>
+            <td>5</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:83%"></span></span>&nbsp; 83%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="makassar">
+            <td class="cell-group">Makassar</td>
+            <td>Male</td>
+            <td>25–34</td>
+            <td>30</td>
+            <td>21</td>
+            <td>9</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:70%"></span></span>&nbsp; 70%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="makassar">
+            <td class="cell-group">Makassar</td>
+            <td>Male</td>
+            <td>35–44</td>
+            <td>30</td>
+            <td>27</td>
+            <td>3</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:90%"></span></span>&nbsp; 90%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="surabaya">
+            <td class="cell-group">Surabaya</td>
+            <td>Female</td>
+            <td>25–34</td>
+            <td>35</td>
+            <td>30</td>
+            <td>5</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:86%"></span></span>&nbsp; 86%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+          <tr data-city="surabaya">
+            <td class="cell-group">Surabaya</td>
+            <td>Female</td>
+            <td>35–44</td>
+            <td>35</td>
+            <td>35</td>
+            <td>0</td>
+            <td><span class="progress-track"><span class="progress-fill complete" style="width:100%"></span></span>&nbsp; 100%</td>
+            <td><span class="status-badge complete">Complete</span></td>
+          </tr>
+          <tr data-city="surabaya">
+            <td class="cell-group">Surabaya</td>
+            <td>Male</td>
+            <td>25–34</td>
+            <td>35</td>
+            <td>19</td>
+            <td>16</td>
+            <td><span class="progress-track"><span class="progress-fill risk" style="width:54%"></span></span>&nbsp; 54%</td>
+            <td><span class="status-badge risk">At Risk</span></td>
+          </tr>
+          <tr data-city="surabaya">
+            <td class="cell-group">Surabaya</td>
+            <td>Male</td>
+            <td>35–44</td>
+            <td>35</td>
+            <td>26</td>
+            <td>9</td>
+            <td><span class="progress-track"><span class="progress-fill" style="width:74%"></span></span>&nbsp; 74%</td>
+            <td><span class="status-badge ontrack">On Track</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs uppercase tracking-wider">
-              <th class="p-3">Waktu</th>
-              <th class="p-3">Nama</th>
-              <th class="p-3">Email</th>
-              <th class="p-3">Pesan</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody" class="text-sm text-slate-700 divide-y divide-slate-100">
-            <tr>
-              <td colspan="4" class="p-4 text-center text-slate-400">Memuat data...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="demo-note reveal">
+      <strong>Demo data.</strong> Halaman ini menampilkan contoh data quota. Untuk production, hubungkan tabel ke backend (Google Apps Script / API) agar angka ter-update otomatis dari data lapangan MEVO.
     </div>
 
   </div>
+</section>
 
-  <script>
-    // MASUKKAN WEB APP URL DARI GOOGLE APPS SCRIPT ANDA DI SINI
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzwtETHfx8zHfPr_NpZI0LJ68mQjMMiQVZYiz2gct9cmS7_JXJgWBmrbrdTnfyCpw/exec";
+<section class="cta-band">
+  <div class="container cta-inner reveal">
+    <h2>Questions About Your Quota?</h2>
+    <p>Reach out to your MEVO project team anytime — we respond quickly.</p>
+    <a href="contact.html" class="btn-primary">Contact Project Team</a>
+  </div>
+</section>
 
-    // 1. Fungsi Kirim Data (POST)
-    async function submitData(event) {
-      event.preventDefault();
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.filter-tab');
+  var rows = document.querySelectorAll('.quota-table tbody tr');
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      var f = tab.getAttribute('data-filter');
+      rows.forEach(function (r) {
+        r.style.display = (f === 'all' || r.getAttribute('data-city') === f) ? '' : 'none';
+      });
+    });
+  });
+  var el = document.getElementById('lastUpdated');
+  if (el) {
+    var d = new Date();
+    el.textContent = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + ', ' +
+                     d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+  }
+})();
+</script>
 
-      const btnSubmit = document.getElementById("btnSubmit");
-      const statusMessage = document.getElementById("statusMessage");
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">ME<span>VO</span></div>
+        <p class="footer-tagline">The Voice Behind Consumer Decisions</p>
+        <p class="footer-parent">A brand of PT Metadata Indonesia · Established 2008</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Product Test</a>
+        <a href="services.html">Concept Test</a>
+        <a href="services.html">U&amp;A Studies</a>
+        <a href="services.html">Mystery Shopping</a>
+        <a href="services.html">Online Survey</a>
+        <a href="services.html">In-Home Placement</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About MEVO</a>
+        <a href="process.html">Process</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:ganjar.satyanagara@metadata.co.id">ganjar.satyanagara@metadata.co.id</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 MEVO. All rights reserved.</span>
+      <span>Jakarta · Medan · Makassar · Surabaya</span>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
 
-      const payload = {
-        nama: document.getElementById("nama").value,
-        email: document.getElementById("email").value,
-        pesan: document.getElementById("pesan").value
-      };
-
-      // Set State Loading
-      btnSubmit.disabled = true;
-      btnSubmit.innerText = "Lagi Menyimpan...";
-      statusMessage.className = "mt-4 p-3 rounded-lg text-sm text-center bg-blue-50 text-blue-700 block";
-      statusMessage.innerText = "Mengirim data ke Google Sheets...";
-
-      try {
-        const response = await fetch(GAS_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-
-        if (result.result === "success") {
-          statusMessage.className = "mt-4 p-3 rounded-lg text-sm text-center bg-emerald-50 text-emerald-700 block";
-          statusMessage.innerText = "Data berhasil tersimpan!";
-          document.getElementById("dataForm").reset();
-          loadData(); // Update tabel otomatis
-        } else {
-          throw new Error(result.error || "Gagal menyimpan data.");
-        }
-      } catch (err) {
-        statusMessage.className = "mt-4 p-3 rounded-lg text-sm text-center bg-rose-50 text-rose-700 block";
-        statusMessage.innerText = "Terjadi Kesalahan: " + err.message;
-      } finally {
-        btnSubmit.disabled = false;
-        btnSubmit.innerText = "Kirim Data";
-      }
-    }
-
-    // 2. Fungsi Ambil Data (GET)
-    async function loadData() {
-      const tableBody = document.getElementById("tableBody");
-      tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Memuat data terbaru...</td></tr>`;
-
-      try {
-        const response = await fetch(GAS_URL);
-        const result = await response.json();
-
-        if (result.result === "success" && result.data.length > 0) {
-          tableBody.innerHTML = result.data.map(row => `
-            <tr class="hover:bg-slate-50">
-              <td class="p-3 text-xs text-slate-500">${row.Timestamp ? new Date(row.Timestamp).toLocaleString('id-ID') : '-'}</td>
-              <td class="p-3 font-medium">${row.nama || '-'}</td>
-              <td class="p-3">${row.email || '-'}</td>
-              <td class="p-3">${row.pesan || '-'}</td>
-            </tr>
-          `).join("");
-        } else {
-          tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Belum ada data tersimpan.</td></tr>`;
-        }
-      } catch (err) {
-        tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-rose-500">Gagal mengambil data dari server.</td></tr>`;
-      }
-    }
-
-    // Muat data saat halaman pertama kali dibuka
-    window.addEventListener("DOMContentLoaded", loadData);
-  </script>
 </body>
 </html>
