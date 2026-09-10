@@ -76,7 +76,7 @@
 
   <script>
     // MASUKKAN WEB APP URL DARI GOOGLE APPS SCRIPT ANDA DI SINI
-    const GAS_URL = "PASANG_WEB_APP_URL_GAS_DI_SINI";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzwtETHfx8zHfPr_NpZI0LJ68mQjMMiQVZYiz2gct9cmS7_JXJgWBmrbrdTnfyCpw/exec";
 
     // 1. Fungsi Kirim Data (POST)
     async function submitData(event) {
