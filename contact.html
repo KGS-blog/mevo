@@ -15,34 +15,33 @@
   <div class="nav-container">
     <a href="index.html" class="nav-logo" aria-label="MEVO home">ME<span>VO</span></a>
     <nav class="nav-menu" aria-label="Main navigation">
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="process.html" class="nav-link">Process</a>
+      <a href="services.html" class="nav-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+      <a href="about.html" class="nav-link"><span data-en="About" data-id="Tentang">About</span></a>
+      <a href="process.html" class="nav-link"><span data-en="Process" data-id="Proses">Process</span></a>
       <a href="faq.html" class="nav-link">FAQ</a>
       <a href="fieldwork.html" class="nav-link">Fieldwork</a>
-      <a href="contact.html" class="btn-primary nav-cta">Discuss Your Study</a>
+      <a href="contact.html" class="btn-primary nav-cta"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
+      <button class="lang-switch" data-lang-toggle data-en="ID" data-id="EN" aria-label="Switch language">ID</button>
     </nav>
-    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span>
-    </button>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
   </div>
 </header>
-
 <nav class="nav-mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-  <a href="index.html" class="nav-mobile-link">Home</a>
-  <a href="services.html" class="nav-mobile-link">Services</a>
-  <a href="about.html" class="nav-mobile-link">About</a>
-  <a href="process.html" class="nav-mobile-link">Process</a>
+  <a href="index.html" class="nav-mobile-link"><span data-en="Home" data-id="Beranda">Home</span></a>
+  <a href="services.html" class="nav-mobile-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+  <a href="about.html" class="nav-mobile-link"><span data-en="About" data-id="Tentang">About</span></a>
+  <a href="process.html" class="nav-mobile-link"><span data-en="Process" data-id="Proses">Process</span></a>
   <a href="faq.html" class="nav-mobile-link">FAQ</a>
   <a href="fieldwork.html" class="nav-mobile-link">Fieldwork</a>
-  <a href="contact.html" class="btn-primary" style="margin-top:24px">Discuss Your Study</a>
+  <button class="nav-mobile-lang" data-lang-toggle data-en="Bahasa Indonesia" data-id="English">Bahasa Indonesia</button>
+  <a href="contact.html" class="btn-primary" style="margin-top:12px"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
 </nav>
 
 <section class="page-hero">
   <div class="container page-hero-inner">
     <div class="divider-badge reveal"></div>
-    <h1 class="reveal" style="transition-delay:.1s">Have a Study in Mind?</h1>
-    <p class="reveal" style="transition-delay:.2s">Share your target respondents, method, sample size, market, and timeline. We will help you assess feasibility and define the most practical fieldwork approach.</p>
+    <h1 class="reveal" style="transition-delay:.1s" data-en="Have a Study in Mind?" data-id="Punya Studi yang Ingin Dikerjakan?">Have a Study in Mind?</h1>
+    <p class="reveal" style="transition-delay:.2s" data-en="Share your target respondents, method, sample size, market, and timeline. We will help you assess feasibility and define the most practical fieldwork approach." data-id="Bagikan target responden, metode, ukuran sampel, pasar, dan jadwal Anda. Kami akan membantu menilai kelayakan dan menentukan pendekatan kerja lapangan yang paling praktis.">Share your target respondents, method, sample size, market, and timeline. We will help you assess feasibility and define the most practical fieldwork approach.</p>
   </div>
 </section>
 
@@ -56,13 +55,13 @@
       </div>
       <div class="contact-info-card reveal" style="transition-delay:.1s">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <h3>Coverage</h3>
-        <p>Jakarta · Medan · Makassar · Surabaya — nationwide reach</p>
+        <h3 data-en="Coverage" data-id="Jangkauan">Coverage</h3>
+        <p data-en="Jakarta · Medan · Makassar · Surabaya — nationwide reach" data-id="Jakarta · Medan · Makassar · Surabaya — jangkauan nasional">Jakarta · Medan · Makassar · Surabaya — nationwide reach</p>
       </div>
       <div class="contact-info-card reveal" style="transition-delay:.2s">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <h3>Response Time</h3>
-        <p>We respond within 1–2 business days</p>
+        <h3 data-en="Response Time" data-id="Waktu Respons">Response Time</h3>
+        <p data-en="We respond within 1–2 business days" data-id="Kami membalas dalam 1–2 hari kerja">We respond within 1–2 business days</p>
       </div>
     </div>
 
@@ -70,73 +69,73 @@
       <form id="contactForm" novalidate>
         <div class="form-grid">
           <div class="form-group">
-            <label class="form-label" for="name">Name <span class="req">*</span></label>
-            <input class="form-input" type="text" id="name" name="name" placeholder="Your full name" required>
-            <span class="form-error">Please enter your name.</span>
+            <label class="form-label" for="name"><span data-en="Name" data-id="Nama">Name</span> <span class="req">*</span></label>
+            <input class="form-input" type="text" id="name" name="name" data-en-ph="Your full name" data-id-ph="Nama lengkap Anda" placeholder="Your full name" required>
+            <span class="form-error" data-en="Please enter your name." data-id="Mohon isi nama Anda.">Please enter your name.</span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="email">Work Email <span class="req">*</span></label>
-            <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" required>
-            <span class="form-error">Please enter a valid email address.</span>
+            <label class="form-label" for="email"><span data-en="Work Email" data-id="Email Kerja">Work Email</span> <span class="req">*</span></label>
+            <input class="form-input" type="email" id="email" name="email" data-en-ph="you@company.com" data-id-ph="anda@perusahaan.com" placeholder="you@company.com" required>
+            <span class="form-error" data-en="Please enter a valid email address." data-id="Mohon isi alamat email yang valid.">Please enter a valid email address.</span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="company">Company <span class="req">*</span></label>
-            <input class="form-input" type="text" id="company" name="company" placeholder="Company or organization" required>
-            <span class="form-error">Please enter your company.</span>
+            <label class="form-label" for="company"><span data-en="Company" data-id="Perusahaan">Company</span> <span class="req">*</span></label>
+            <input class="form-input" type="text" id="company" name="company" data-en-ph="Company or organization" data-id-ph="Perusahaan atau organisasi" placeholder="Company or organization" required>
+            <span class="form-error" data-en="Please enter your company." data-id="Mohon isi nama perusahaan Anda.">Please enter your company.</span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="phone">Phone</label>
-            <input class="form-input" type="tel" id="phone" name="phone" placeholder="Optional">
+            <label class="form-label" for="phone"><span data-en="Phone" data-id="Telepon">Phone</span></label>
+            <input class="form-input" type="tel" id="phone" name="phone" data-en-ph="Optional" data-id-ph="Opsional" placeholder="Optional">
           </div>
           <div class="form-group">
-            <label class="form-label" for="jobtitle">Job Title</label>
-            <input class="form-input" type="text" id="jobtitle" name="jobtitle" placeholder="Optional">
+            <label class="form-label" for="jobtitle"><span data-en="Job Title" data-id="Jabatan">Job Title</span></label>
+            <input class="form-input" type="text" id="jobtitle" name="jobtitle" data-en-ph="Optional" data-id-ph="Opsional" placeholder="Optional">
           </div>
           <div class="form-group">
-            <label class="form-label" for="studytype">Study Type <span class="req">*</span></label>
+            <label class="form-label" for="studytype"><span data-en="Study Type" data-id="Jenis Studi">Study Type</span> <span class="req">*</span></label>
             <select class="form-select" id="studytype" name="studytype" required>
-              <option value="">Select a study type</option>
-              <option>Product Test</option>
-              <option>Concept Test</option>
-              <option>Usage &amp; Attitude</option>
-              <option>Pre &amp; Post Event</option>
-              <option>Online Survey</option>
-              <option>In-Home Placement</option>
-              <option>Consumer Satisfaction</option>
-              <option>Mystery Shopping</option>
-              <option>Other</option>
+              <option value="" data-en="Select a study type" data-id="Pilih jenis studi">Select a study type</option>
+              <option data-en="Product Test" data-id="Uji Produk">Product Test</option>
+              <option data-en="Concept Test" data-id="Uji Konsep">Concept Test</option>
+              <option data-en="Usage &amp; Attitude" data-id="Penggunaan &amp; Sikap">Usage &amp; Attitude</option>
+              <option data-en="Pre &amp; Post Event" data-id="Pra &amp; Pasca Acara">Pre &amp; Post Event</option>
+              <option data-en="Online Survey" data-id="Survei Online">Online Survey</option>
+              <option data-en="In-Home Placement" data-id="Penempatan di Rumah">In-Home Placement</option>
+              <option data-en="Consumer Satisfaction" data-id="Kepuasan Konsumen">Consumer Satisfaction</option>
+              <option data-en="Mystery Shopping" data-id="Mystery Shopping">Mystery Shopping</option>
+              <option data-en="Other" data-id="Lainnya">Other</option>
             </select>
-            <span class="form-error">Please select a study type.</span>
+            <span class="form-error" data-en="Please select a study type." data-id="Mohon pilih jenis studi.">Please select a study type.</span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="respondents">Target Respondents</label>
-            <input class="form-input" type="text" id="respondents" name="respondents" placeholder="e.g. Mothers aged 25–40, urban">
+            <label class="form-label" for="respondents"><span data-en="Target Respondents" data-id="Target Responden">Target Respondents</span></label>
+            <input class="form-input" type="text" id="respondents" name="respondents" data-en-ph="e.g. Mothers aged 25–40, urban" data-id-ph="mis. Ibu usia 25–40, perkotaan" placeholder="e.g. Mothers aged 25–40, urban">
           </div>
           <div class="form-group">
-            <label class="form-label" for="market">Market / City</label>
-            <input class="form-input" type="text" id="market" name="market" placeholder="e.g. Jakarta + Surabaya">
+            <label class="form-label" for="market"><span data-en="Market / City" data-id="Pasar / Kota">Market / City</span></label>
+            <input class="form-input" type="text" id="market" name="market" data-en-ph="e.g. Jakarta + Surabaya" data-id-ph="mis. Jakarta + Surabaya" placeholder="e.g. Jakarta + Surabaya">
           </div>
           <div class="form-group">
-            <label class="form-label" for="samplesize">Sample Size</label>
-            <input class="form-input" type="number" id="samplesize" name="samplesize" min="1" placeholder="e.g. 300">
+            <label class="form-label" for="samplesize"><span data-en="Sample Size" data-id="Ukuran Sampel">Sample Size</span></label>
+            <input class="form-input" type="number" id="samplesize" name="samplesize" min="1" data-en-ph="e.g. 300" data-id-ph="mis. 300" placeholder="e.g. 300">
           </div>
           <div class="form-group">
-            <label class="form-label" for="timeline">Timeline</label>
-            <input class="form-input" type="text" id="timeline" name="timeline" placeholder="e.g. Fieldwork within 4 weeks">
+            <label class="form-label" for="timeline"><span data-en="Timeline" data-id="Jadwal">Timeline</span></label>
+            <input class="form-input" type="text" id="timeline" name="timeline" data-en-ph="e.g. Fieldwork within 4 weeks" data-id-ph="mis. Pelaksanaan dalam 4 minggu" placeholder="e.g. Fieldwork within 4 weeks">
           </div>
           <div class="form-group full">
-            <label class="form-label" for="message">Project Description <span class="req">*</span></label>
-            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your objectives, method, and any specific requirements." required></textarea>
-            <span class="form-error">Please describe your project.</span>
+            <label class="form-label" for="message"><span data-en="Project Description" data-id="Deskripsi Proyek">Project Description</span> <span class="req">*</span></label>
+            <textarea class="form-textarea" id="message" name="message" data-en-ph="Tell us about your objectives, method, and any specific requirements." data-id-ph="Ceritakan tujuan, metode, dan kebutuhan khusus Anda." placeholder="Tell us about your objectives, method, and any specific requirements." required></textarea>
+            <span class="form-error" data-en="Please describe your project." data-id="Mohon jelaskan proyek Anda.">Please describe your project.</span>
           </div>
         </div>
         <div class="form-submit-wrap">
-          <button type="submit" class="btn-primary" id="submitBtn" aria-label="Submit contact form">Discuss Your Study</button>
-          <p class="form-note">We respond within 1–2 business days. Your information is kept confidential.</p>
+          <button type="submit" class="btn-primary" id="submitBtn" aria-label="Submit contact form"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></button>
+          <p class="form-note" data-en="We respond within 1–2 business days. Your information is kept confidential." data-id="Kami membalas dalam 1–2 hari kerja. Informasi Anda dijaga kerahasiaannya.">We respond within 1–2 business days. Your information is kept confidential.</p>
         </div>
       </form>
       <div class="form-success hidden" id="formSuccess" role="status" aria-live="polite">
-        <strong>Thank you!</strong> We&rsquo;ve received your inquiry and will respond within 1–2 business days.
+        <strong data-en="Thank you!" data-id="Terima kasih!">Thank you!</strong> <span data-en="We&rsquo;ve received your inquiry and will respond within 1–2 business days." data-id="Pertanyaan Anda telah kami terima dan akan kami balas dalam 1–2 hari kerja.">We&rsquo;ve received your inquiry and will respond within 1–2 business days.</span>
       </div>
     </div>
   </div>
@@ -147,37 +146,36 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="logo">ME<span>VO</span></div>
-        <p class="footer-tagline">The Voice Behind Consumer Decisions</p>
-        <p class="footer-parent">A brand of PT Metadata Indonesia · Established 2008</p>
+        <p class="footer-tagline" data-en="The Voice Behind Consumer Decisions" data-id="Suara di Balik Keputusan Konsumen">The Voice Behind Consumer Decisions</p>
+        <p class="footer-parent" data-en="A brand of PT Metadata Indonesia · Established 2008" data-id="Merek dari PT Metadata Indonesia · Berdiri sejak 2008">A brand of PT Metadata Indonesia · Established 2008</p>
       </div>
       <div class="footer-col">
-        <h4>Services</h4>
-        <a href="services.html">Product Test</a>
-        <a href="services.html">Concept Test</a>
-        <a href="services.html">U&amp;A Studies</a>
-        <a href="services.html">Mystery Shopping</a>
-        <a href="services.html">Online Survey</a>
-        <a href="services.html">In-Home Placement</a>
+        <h4 data-en="Services" data-id="Layanan">Services</h4>
+        <a href="services.html"><span data-en="Product Test" data-id="Uji Produk">Product Test</span></a>
+        <a href="services.html"><span data-en="Concept Test" data-id="Uji Konsep">Concept Test</span></a>
+        <a href="services.html"><span data-en="U&amp;A Studies" data-id="Studi U&amp;A">U&amp;A Studies</span></a>
+        <a href="services.html"><span data-en="Mystery Shopping" data-id="Mystery Shopping">Mystery Shopping</span></a>
+        <a href="services.html"><span data-en="Online Survey" data-id="Survei Online">Online Survey</span></a>
+        <a href="services.html"><span data-en="In-Home Placement" data-id="Penempatan di Rumah">In-Home Placement</span></a>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
-        <a href="about.html">About MEVO</a>
-        <a href="process.html">Process</a>
+        <h4 data-en="Company" data-id="Perusahaan">Company</h4>
+        <a href="about.html"><span data-en="About MEVO" data-id="Tentang MEVO">About MEVO</span></a>
+        <a href="process.html"><span data-en="Process" data-id="Proses">Process</span></a>
         <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html"><span data-en="Contact" data-id="Kontak">Contact</span></a>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4 data-en="Contact" data-id="Kontak">Contact</h4>
         <a href="mailto:ganjar.satyanagara@metadata.co.id">ganjar.satyanagara@metadata.co.id</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 MEVO. All rights reserved.</span>
+      <span>&copy; 2026 MEVO. <span data-en="All rights reserved." data-id="Hak cipta dilindungi.">All rights reserved.</span></span>
       <span>Jakarta · Medan · Makassar · Surabaya</span>
     </div>
   </div>
 </footer>
 <script src="main.js"></script>
-
 </body>
 </html>
