@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="styles.css">
 <title>Fieldwork — Live Survey Progress | MEVO</title>
 <meta name="description" content="MEVO fieldwork monitoring: master PSU geo-tagging maps for DKI Jakarta and Surabaya, panel statistics, and PSU ID linkage QC.">
+<base target="_blank">
 </head>
 <body>
 <header class="navbar" id="navbar">
@@ -118,7 +119,7 @@
     </div>
 
     <div class="demo-note hidden" id="demoNote">
-      <strong>Mode demo.</strong> Backend belum terhubung. Sambungkan API_ ke Web App Apps Script yang menempel di spreadsheet berisi <code>PSU_Raw</code> (master) dan <code>Panel_Raw</code> (responden).
+      <strong>Mode demo.</strong> Backend belum terhubung. Sambungkan API_URL ke Web App Apps Script yang menempel di spreadsheet berisi <code>PSU_Raw</code> (master) dan <code>Panel_Raw</code> (responden).
     </div>
 
   </div>
@@ -132,10 +133,13 @@
   </div>
 </section>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="main.js"></script>
+
 <script>
-// fieldwork.html — v2026.09.20-1
-// ====== KONFIGURASI: tempel  Web App Apps Script di sini ======
-var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNUuPQAfj7cg6e7Ebnk3Op94vIU6W42/exec';
+// fieldwork.html — v2026.09.20-2
+// ====== KONFIGURASI: tempel URL Web App Apps Script di sini ======
+var API_URL = 'PASTE_URL_APPS_SCRIPT_WEB_APP_DI_SINI';
 
 // Data demo — meniru struktur asli: PSU_Raw (master titik) + Panel_Raw (responden via ID PSU)
 function makeDemo() {
@@ -211,9 +215,15 @@ function badgeCell(done, total) {
 }
 
 var maps = {};
-function initMap(id, center, zoom, points) {
+// initMap dengan retry: tunggu Leaflet siap (CDN kadang lambat)
+function initMap(id, center, zoom, points, attempt) {
+  attempt = attempt || 0;
   var el = document.getElementById(id);
-  if (!el || typeof L === 'undefined') return;
+  if (!el) return;
+  if (typeof L === 'undefined') {
+    if (attempt < 25) setTimeout(function () { initMap(id, center, zoom, points, attempt + 1); }, 400);
+    return;
+  }
   if (maps[id]) maps[id].remove();
   var map = L.map(id).setView(center, zoom);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -285,20 +295,31 @@ function setMode(live) {
 
 function loadDemo() { render(DEMO); setMode(false); }
 
+// fetch dengan timeout: kalau API lambat/gagal, jatuh ke DEMO (tidak stuck LOADING)
+function fetchWithTimeout(url, ms) {
+  return Promise.race([
+    fetch(url).then(function (res) { return res.json(); }),
+    new Promise(function (_, reject) {
+      setTimeout(function () { reject(new Error('timeout')); }, ms);
+    })
+  ]);
+}
+
 function loadLive() {
-  fetch(API_URL + '?action=fieldwork')
-    .then(function (res) { return res.json(); })
+  fetchWithTimeout(API_URL + '?action=fieldwork', 15000)
     .then(function (data) {
-      if (!data.ok || (!data.points.length && !data.panels.length)) { loadDemo(); return; }
+      if (!data || !data.ok || (!data.points.length && !data.panels.length)) { loadDemo(); return; }
       render(data);
       setMode(true);
     })
-    .catch(loadDemo);
+    .catch(function (e) {
+      console.warn('API tidak terjangkau (' + e.message + '), memakai data demo.', e);
+      loadDemo();
+    });
 }
 
 if (API_URL.indexOf('PASTE_URL') === 0) loadDemo(); else loadLive();
 </script>
-
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -334,8 +355,6 @@ if (API_URL.indexOf('PASTE_URL') === 0) loadDemo(); else loadLive();
     </div>
   </div>
 </footer>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="main.js"></script>
 
 </body>
 </html>
