@@ -100,7 +100,7 @@
 
     <div class="attr-block reveal">
       <h3 data-en="Working Areas by Sub-district" data-id="Wilayah Kerja per Kelurahan">Working Areas by Sub-district</h3>
-      <p class="map-sub" data-en="Areas where MEVO has conducted fieldwork, with PSU and respondent counts" data-id="Wilayah tempat MEVO telah melaksanakan fieldwork, dengan jumlah PSU &amp; responden">Areas where MEVO has conducted fieldwork, with PSU and respondent counts</p>
+      <p class="map-sub" data-en="Areas where MEVO has conducted fieldwork, with PSU and respondent counts" data-id="Wilayah tempat MEVO telah melaksanakan fieldwork, dengan jumlah PSU dan responden">Areas where MEVO has conducted fieldwork, with PSU and respondent counts</p>
       <div class="quota-table-wrap"><table class="quota-table">
         <thead><tr><th data-en="Province" data-id="Provinsi">Province</th><th>Kab/Kodya</th><th data-en="District" data-id="Kecamatan">District</th><th data-en="Sub-district" data-id="Kelurahan">Sub-district</th><th data-en="PSU Completed" data-id="PSU Dikerjakan">PSU Completed</th><th data-en="Respondents" data-id="Responden">Respondents</th></tr></thead>
         <tbody id="panelBody"></tbody>
@@ -108,7 +108,7 @@
     </div>
 
     <div class="demo-note hidden" id="demoNote">
-      <strong>Mode demo.</strong> <span data-en="Backend not connected. Set API_URL in this page&rsquo;s script to the Apps Script Web App URL." data-id="Backend belum terhubung. Isi API_URL di script halaman ini dengan URL Web App Apps Script.">Backend not connected. Set API_URL in this page&rsquo;s script to the Apps Script Web App URL.</span>
+      <strong>Mode demo.</strong> <span data-en="Backend not connected. Set API_URL in this page script to the Apps Script Web App URL." data-id="Backend belum terhubung. Isi API_URL di script halaman ini dengan URL Web App Apps Script.">Backend not connected. Set API_URL in this page script to the Apps Script Web App URL.</span>
     </div>
   </div>
 </section>
@@ -116,7 +116,7 @@
 <section class="cta-band">
   <div class="container cta-inner reveal">
     <h2 data-en="Want MEVO In Your Area?" data-id="Ingin MEVO di Wilayah Anda?">Want MEVO In Your Area?</h2>
-    <p data-en="We cover households, commercial districts, and dense urban settlements nationwide. Let&rsquo;s discuss your study." data-id="Kami menjangkau rumah tangga, kawasan komersial, dan permukiman padat di seluruh Indonesia. Mari diskusikan studi Anda.">We cover households, commercial districts, and dense urban settlements nationwide. Let&rsquo;s discuss your study.</p>
+    <p data-en="We cover households, commercial districts, and dense urban settlements nationwide. Let us discuss your study." data-id="Kami menjangkau rumah tangga, kawasan komersial, dan permukiman padat di seluruh Indonesia. Mari diskusikan studi Anda.">We cover households, commercial districts, and dense urban settlements nationwide. Let us discuss your study.</p>
     <a href="contact.html" class="btn-primary"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
   </div>
 </section>
@@ -124,9 +124,8 @@
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="main.js"></script>
 <script>
-// fieldwork.html — v2026.09.20-4
-var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNUuPQAfj7cg6e7Ebnk3Op94vIU6W42/exec
-';
+// fieldwork.html — v2026.09.20-5
+var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNuUPAfj7cg6e7Ebnk3Op94vIU6W4/exec';
 
 function makeDemo() {
   var kelsJkt = [
@@ -160,7 +159,8 @@ function makeDemo() {
       }
     });
   }
-  seed(kelsJkt, 'DKI Jakarta'); seed(kelsSby, 'Jawa Timur');
+  seed(kelsJkt, 'DKI Jakarta');
+  seed(kelsSby, 'Jawa Timur');
   var provMap = {};
   panels.forEach(function (p) {
     var o = provMap[p.prov] = provMap[p.prov] || { prov: p.prov, psuWorked: 0, respondents: 0, kelurahan: 0 };
@@ -191,7 +191,7 @@ function initMap(id, center, zoom, points, attempt) {
   if (typeof L === 'undefined') {
     if (attempt < 25) { setTimeout(function () { initMap(id, center, zoom, points, attempt + 1); }, 400); return; }
     var leg = document.getElementById(id === 'mapJakarta' ? 'legendJakarta' : 'legendSurabaya');
-    if (leg) leg.innerHTML = '<span style="color:#DC2626">Map failed to load — CDN blocked by network/adblock.</span>';
+    if (leg) leg.innerHTML = '<span style="color:#DC2626">Map failed to load - CDN blocked by network/adblock.</span>';
     return;
   }
   if (maps[id]) maps[id].remove();
@@ -225,10 +225,10 @@ function isSurabaya(s) { s = (s || '').toLowerCase(); return s.indexOf('surabaya
 function render(data) {
   typeColorMap = {};
   var st = data.stats || {};
-  document.getElementById('sumPsu').textContent = st.psuWorked != null ? st.psuWorked : '—';
-  document.getElementById('sumResp').textContent = st.respondents != null ? st.respondents : '—';
-  document.getElementById('sumKel').textContent = st.kelurahan != null ? st.kelurahan : '—';
-  document.getElementById('sumCity').textContent = st.cities != null ? st.cities : '—';
+  document.getElementById('sumPsu').textContent = st.psuWorked != null ? st.psuWorked : '-';
+  document.getElementById('sumResp').textContent = st.respondents != null ? st.respondents : '-';
+  document.getElementById('sumKel').textContent = st.kelurahan != null ? st.kelurahan : '-';
+  document.getElementById('sumCity').textContent = st.cities != null ? st.cities : '-';
 
   document.getElementById('provBody').innerHTML = (data.byProv || []).map(function (p) {
     return '<tr><td class="cell-group">' + p.prov + '</td><td>' + p.psuWorked + '</td><td>' + p.kelurahan + '</td><td>' + p.respondents + '</td></tr>';
