@@ -6,45 +6,43 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="styles.css">
 <title>Fieldwork — Where MEVO Works | MEVO</title>
 <meta name="description" content="MEVO fieldwork coverage across Jakarta and Surabaya — residential, commercial, and dense urban areas where we have conducted consumer research.">
-<base target="_blank">
 </head>
 <body>
 <header class="navbar" id="navbar">
   <div class="nav-container">
     <a href="index.html" class="nav-logo" aria-label="MEVO home">ME<span>VO</span></a>
     <nav class="nav-menu" aria-label="Main navigation">
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="process.html" class="nav-link">Process</a>
+      <a href="services.html" class="nav-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+      <a href="about.html" class="nav-link"><span data-en="About" data-id="Tentang">About</span></a>
+      <a href="process.html" class="nav-link"><span data-en="Process" data-id="Proses">Process</span></a>
       <a href="faq.html" class="nav-link">FAQ</a>
       <a href="fieldwork.html" class="nav-link active">Fieldwork</a>
-      <a href="contact.html" class="btn-primary nav-cta">Discuss Your Study</a>
+      <a href="contact.html" class="btn-primary nav-cta"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
+      <button class="lang-switch" data-lang-toggle data-en="ID" data-id="EN" aria-label="Switch language">ID</button>
     </nav>
-    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span>
-    </button>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
   </div>
 </header>
-
 <nav class="nav-mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-  <a href="index.html" class="nav-mobile-link">Home</a>
-  <a href="services.html" class="nav-mobile-link">Services</a>
-  <a href="about.html" class="nav-mobile-link">About</a>
-  <a href="process.html" class="nav-mobile-link">Process</a>
+  <a href="index.html" class="nav-mobile-link"><span data-en="Home" data-id="Beranda">Home</span></a>
+  <a href="services.html" class="nav-mobile-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+  <a href="about.html" class="nav-mobile-link"><span data-en="About" data-id="Tentang">About</span></a>
+  <a href="process.html" class="nav-mobile-link"><span data-en="Process" data-id="Proses">Process</span></a>
   <a href="faq.html" class="nav-mobile-link">FAQ</a>
   <a href="fieldwork.html" class="nav-mobile-link active">Fieldwork</a>
-  <a href="contact.html" class="btn-primary" style="margin-top:24px">Discuss Your Study</a>
+  <button class="nav-mobile-lang" data-lang-toggle data-en="Bahasa Indonesia" data-id="English">Bahasa Indonesia</button>
+  <a href="contact.html" class="btn-primary" style="margin-top:12px"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
 </nav>
 
 <section class="page-hero" style="padding-bottom:56px">
   <div class="container page-hero-inner">
     <div class="divider-badge reveal"></div>
     <h1 class="reveal" style="transition-delay:.1s">Fieldwork</h1>
-    <p class="reveal" style="transition-delay:.2s">Lokasi-lokasi di mana MEVO telah melaksanakan fieldwork — dari permukiman padat hingga kawasan komersial.</p>
+    <p class="reveal" style="transition-delay:.2s" data-en="Locations where MEVO has conducted fieldwork — from dense residential areas to commercial districts." data-id="Lokasi-lokasi di mana MEVO telah melaksanakan fieldwork — dari permukiman padat hingga kawasan komersial.">Locations where MEVO has conducted fieldwork — from dense residential areas to commercial districts.</p>
     <div class="study-meta reveal" style="transition-delay:.3s;margin-top:24px">
       <span>Mode: <strong><span class="status-badge complete" id="dataMode">LOADING</span></strong></span>
       <span>Last updated: <strong id="lastUpdated">—</strong></span>
@@ -54,127 +52,115 @@
 
 <section class="section-soft">
   <div class="container">
-
     <div class="summary-cards">
       <div class="summary-card reveal" style="transition-delay:.05s">
-        <div class="summary-label">PSU Dikerjakan</div>
+        <div class="summary-label" data-en="PSU Completed" data-id="PSU Dikerjakan">PSU Completed</div>
         <div class="summary-value" id="sumPsu">—</div>
-        <div class="summary-sub">Titik sampling unit</div>
+        <div class="summary-sub" data-en="Sampling unit locations" data-id="Lokasi titik sampling unit">Sampling unit locations</div>
       </div>
       <div class="summary-card reveal" style="transition-delay:.1s">
-        <div class="summary-label">Responden</div>
+        <div class="summary-label" data-en="Respondents" data-id="Responden">Respondents</div>
         <div class="summary-value" id="sumResp">—</div>
-        <div class="summary-sub">Wawancara terlaksana</div>
+        <div class="summary-sub" data-en="Interviews conducted" data-id="Wawancara terlaksana">Interviews conducted</div>
       </div>
       <div class="summary-card reveal" style="transition-delay:.15s">
-        <div class="summary-label">Kelurahan</div>
+        <div class="summary-label" data-en="Sub-districts" data-id="Kelurahan">Sub-districts</div>
         <div class="summary-value" id="sumKel">—</div>
-        <div class="summary-sub">Wilayah ter-cover</div>
+        <div class="summary-sub" data-en="Areas covered" data-id="Wilayah ter-cover">Areas covered</div>
       </div>
       <div class="summary-card reveal" style="transition-delay:.2s">
-        <div class="summary-label">Kota</div>
+        <div class="summary-label" data-en="Cities" data-id="Kota">Cities</div>
         <div class="summary-value" id="sumCity">—</div>
-        <div class="summary-sub">Area kerja MEVO</div>
+        <div class="summary-sub" data-en="MEVO working areas" data-id="Area kerja MEVO">MEVO working areas</div>
       </div>
     </div>
 
     <div class="attr-block reveal">
-      <h3>Cakupan per Provinsi</h3>
-      <p class="map-sub">Berdasarkan Panel_Raw × master PSU_Raw</p>
+      <h3 data-en="Coverage by Province" data-id="Cakupan per Provinsi">Coverage by Province</h3>
+      <p class="map-sub" data-en="Based on Panel_Raw joined with master PSU_Raw" data-id="Berdasarkan Panel_Raw yang digabung ke master PSU_Raw">Based on Panel_Raw joined with master PSU_Raw</p>
       <div class="quota-table-wrap"><table class="quota-table">
-        <thead><tr><th>Provinsi</th><th>PSU Dikerjakan</th><th>Kelurahan</th><th>Responden</th></tr></thead>
+        <thead><tr><th data-en="Province" data-id="Provinsi">Province</th><th data-en="PSU Completed" data-id="PSU Dikerjakan">PSU Completed</th><th data-en="Sub-districts" data-id="Kelurahan">Sub-districts</th><th data-en="Respondents" data-id="Responden">Respondents</th></tr></thead>
         <tbody id="provBody"></tbody>
       </table></div>
     </div>
 
     <div class="map-block reveal">
-      <h3>Peta Fieldwork — Jakarta</h3>
-      <p class="map-sub">Titik lokasi PSU yang telah dikerjakan MEVO (hanya wilayah Jakarta)</p>
+      <h3 data-en="Fieldwork Map — Jakarta" data-id="Peta Fieldwork — Jakarta">Fieldwork Map — Jakarta</h3>
+      <p class="map-sub" data-en="Completed PSU locations, Jakarta only — colored by area type" data-id="Lokasi PSU yang telah dikerjakan, hanya Jakarta — diwarnai berdasarkan tipe wilayah">Completed PSU locations, Jakarta only — colored by area type</p>
       <div id="mapJakarta" style="height:460px"></div>
       <div class="map-legend" id="legendJakarta"></div>
     </div>
 
     <div class="map-block reveal">
-      <h3>Peta Fieldwork — Surabaya</h3>
-      <p class="map-sub">Titik lokasi PSU yang telah dikerjakan MEVO (hanya wilayah Surabaya)</p>
+      <h3 data-en="Fieldwork Map — Surabaya" data-id="Peta Fieldwork — Surabaya">Fieldwork Map — Surabaya</h3>
+      <p class="map-sub" data-en="Completed PSU locations, Surabaya only — colored by area type" data-id="Lokasi PSU yang telah dikerjakan, hanya Surabaya — diwarnai berdasarkan tipe wilayah">Completed PSU locations, Surabaya only — colored by area type</p>
       <div id="mapSurabaya" style="height:460px"></div>
       <div class="map-legend" id="legendSurabaya"></div>
     </div>
 
     <div class="attr-block reveal">
-      <h3>Wilayah Kerja per Kelurahan</h3>
-      <p class="map-sub">Kelurahan yang pernah dikerjakan MEVO beserta jumlah PSU &amp; responden</p>
+      <h3 data-en="Working Areas by Sub-district" data-id="Wilayah Kerja per Kelurahan">Working Areas by Sub-district</h3>
+      <p class="map-sub" data-en="Areas where MEVO has conducted fieldwork, with PSU and respondent counts" data-id="Wilayah tempat MEVO telah melaksanakan fieldwork, dengan jumlah PSU &amp; responden">Areas where MEVO has conducted fieldwork, with PSU and respondent counts</p>
       <div class="quota-table-wrap"><table class="quota-table">
-        <thead><tr><th>Provinsi</th><th>Kab/Kodya</th><th>Kecamatan</th><th>Kelurahan</th><th>PSU Dikerjakan</th><th>Responden</th></tr></thead>
+        <thead><tr><th data-en="Province" data-id="Provinsi">Province</th><th>Kab/Kodya</th><th data-en="District" data-id="Kecamatan">District</th><th data-en="Sub-district" data-id="Kelurahan">Sub-district</th><th data-en="PSU Completed" data-id="PSU Dikerjakan">PSU Completed</th><th data-en="Respondents" data-id="Responden">Respondents</th></tr></thead>
         <tbody id="panelBody"></tbody>
       </table></div>
     </div>
 
     <div class="demo-note hidden" id="demoNote">
-      <strong>Mode demo.</strong> Backend belum terhubung. Sambungkan API_URL ke Web App Apps Script yang menempel di spreadsheet berisi <code>PSU_Raw</code> (master) dan <code>Panel_Raw</code> (responden).
+      <strong>Mode demo.</strong> <span data-en="Backend not connected. Set API_URL in this page&rsquo;s script to the Apps Script Web App URL." data-id="Backend belum terhubung. Isi API_URL di script halaman ini dengan URL Web App Apps Script.">Backend not connected. Set API_URL in this page&rsquo;s script to the Apps Script Web App URL.</span>
     </div>
-
   </div>
 </section>
 
 <section class="cta-band">
   <div class="container cta-inner reveal">
-    <h2>Want MEVO In Your Area?</h2>
-    <p>We cover households, commercial districts, and dense urban settlements nationwide. Let's discuss your study.</p>
-    <a href="contact.html" class="btn-primary">Discuss Your Study</a>
+    <h2 data-en="Want MEVO In Your Area?" data-id="Ingin MEVO di Wilayah Anda?">Want MEVO In Your Area?</h2>
+    <p data-en="We cover households, commercial districts, and dense urban settlements nationwide. Let&rsquo;s discuss your study." data-id="Kami menjangkau rumah tangga, kawasan komersial, dan permukiman padat di seluruh Indonesia. Mari diskusikan studi Anda.">We cover households, commercial districts, and dense urban settlements nationwide. Let&rsquo;s discuss your study.</p>
+    <a href="contact.html" class="btn-primary"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
   </div>
 </section>
 
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="main.js"></script>
-
 <script>
-// fieldwork.html — v2026.09.20-3 (publikasi cakupan: tanpa progress/status, peta per tipe wilayah)
-// ====== KONFIGURASI: tempel URL Web App Apps Script di sini ======
+// fieldwork.html — v2026.09.20-4
 var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNUuPQAfj7cg6e7Ebnk3Op94vIU6W42/exec
 ';
 
-// Data demo — titik = PSU yang telah dikerjakan MEVO, diwarnai berdasarkan tipe wilayah
 function makeDemo() {
   var kelsJkt = [
-    ['Kota Administrasi Jakarta Selatan', 'Tebet', 'Manggarai', -6.211, 106.848, 10, 62, 'Perumahan Padat Penduduk'],
-    ['Kota Administrasi Jakarta Selatan', 'Pancoran', 'Kalibata', -6.256, 106.853, 8, 48, 'Perumahan Biasa'],
-    ['Kota Administrasi Jakarta Pusat', 'Menteng', 'Menteng', -6.196, 106.830, 6, 38, 'Perumahan Mewah'],
-    ['Kota Administrasi Jakarta Pusat', 'Johar Baru', 'Tanah Tinggi', -6.162, 106.848, 7, 44, 'Perumahan Padat Penduduk'],
-    ['Kota Administrasi Jakarta Pusat', 'Gambir', 'Petojo Selatan', -6.176, 106.817, 5, 30, 'Kawasan Komersial'],
-    ['Kota Administrasi Jakarta Timur', 'Jatinegara', 'Bali Mester', -6.223, 106.875, 7, 41, 'Kawasan Komersial'],
-    ['Kota Administrasi Jakarta Utara', 'Pademangan', 'Pademangan Timur', -6.133, 106.843, 6, 35, 'Perumahan Biasa'],
-    ['Kota Administrasi Jakarta Barat', 'Palmerah', 'Palmerah', -6.190, 106.798, 6, 36, 'Perumahan Biasa']
+    ['Kota Administrasi Jakarta Selatan','Tebet','Manggarai',-6.211,106.848,10,62,'Perumahan Padat Penduduk'],
+    ['Kota Administrasi Jakarta Selatan','Pancoran','Kalibata',-6.256,106.853,8,48,'Perumahan Biasa'],
+    ['Kota Administrasi Jakarta Pusat','Menteng','Menteng',-6.196,106.830,6,38,'Perumahan Mewah'],
+    ['Kota Administrasi Jakarta Pusat','Johar Baru','Tanah Tinggi',-6.162,106.848,7,44,'Perumahan Padat Penduduk'],
+    ['Kota Administrasi Jakarta Pusat','Gambir','Petojo Selatan',-6.176,106.817,5,30,'Kawasan Komersial'],
+    ['Kota Administrasi Jakarta Timur','Jatinegara','Bali Mester',-6.223,106.875,7,41,'Kawasan Komersial'],
+    ['Kota Administrasi Jakarta Utara','Pademangan','Pademangan Timur',-6.133,106.843,6,35,'Perumahan Biasa']
   ];
   var kelsSby = [
-    ['Kota Surabaya', 'Sawahan', 'Kupang Krajan', -7.276, 112.728, 9, 55, 'Perumahan Padat Penduduk'],
-    ['Kota Surabaya', 'Tegalsari', 'Tegalsari', -7.269, 112.739, 8, 49, 'Kawasan Komersial'],
-    ['Kota Surabaya', 'Rungkut', 'Rungkut Kidul', -7.323, 112.793, 9, 52, 'Perumahan Biasa'],
-    ['Kota Surabaya', 'Lakarsantri', 'Lidah Kulon', -7.283, 112.689, 7, 42, 'Perumahan Mewah'],
-    ['Kota Surabaya', 'Wiyung', 'Babatan', -7.306, 112.693, 7, 40, 'Perumahan Biasa'],
-    ['Kota Surabaya', 'Simokerto', 'Simomulyo', -7.263, 112.722, 8, 46, 'Kawasan Komersial'],
-    ['Kota Surabaya', 'Krembangan', 'Morokrembangan', -7.234, 112.704, 6, 34, 'Perumahan Padat Penduduk']
+    ['Kota Surabaya','Sawahan','Kupang Krajan',-7.276,112.728,9,55,'Perumahan Padat Penduduk'],
+    ['Kota Surabaya','Tegalsari','Tegalsari',-7.269,112.739,8,49,'Kawasan Komersial'],
+    ['Kota Surabaya','Rungkut','Rungkut Kidul',-7.323,112.793,9,52,'Perumahan Biasa'],
+    ['Kota Surabaya','Lakarsantri','Lidah Kulon',-7.283,112.689,7,42,'Perumahan Mewah'],
+    ['Kota Surabaya','Wiyung','Babatan',-7.306,112.693,7,40,'Perumahan Biasa'],
+    ['Kota Surabaya','Simokerto','Simomulyo',-7.263,112.722,8,46,'Kawasan Komersial']
   ];
   var points = [], panels = [];
   function seed(list, prov) {
     var seq = prov === 'DKI Jakarta' ? 'JKT' : 'SBY';
     list.forEach(function (k, ki) {
       var n = k[5];
-      panels.push({ prov: prov, kab: k[0], kec: k[1], kel: k[2],
-        psuWorked: n, respondents: k[6] });
+      panels.push({ prov: prov, kab: k[0], kec: k[1], kel: k[2], psuWorked: n, respondents: k[6] });
       for (var i = 0; i < n; i++) {
-        points.push({
-          id: 'PSU' + seq + '-' + (ki + 1) + '-' + (i + 1),
+        points.push({ id: 'PSU' + seq + '-' + (ki + 1) + '-' + (i + 1),
           lat: k[3] + (((i * 37 + ki * 11) % 100) - 50) / 2200,
           lng: k[4] + (((i * 53 + ki * 7) % 100) - 50) / 2200,
-          prov: prov, kab: k[0], kec: k[1], kel: k[2], type: k[7]
-        });
+          prov: prov, kab: k[0], kec: k[1], kel: k[2], type: k[7] });
       }
     });
   }
-  seed(kelsJkt, 'DKI Jakarta');
-  seed(kelsSby, 'Jawa Timur');
+  seed(kelsJkt, 'DKI Jakarta'); seed(kelsSby, 'Jawa Timur');
   var provMap = {};
   panels.forEach(function (p) {
     var o = provMap[p.prov] = provMap[p.prov] || { prov: p.prov, psuWorked: 0, respondents: 0, kelurahan: 0 };
@@ -182,22 +168,18 @@ function makeDemo() {
   });
   return { ok: true,
     stats: { psuWorked: points.length,
-             respondents: panels.reduce(function (a, p) { return a + p.respondents; }, 0),
-             kelurahan: panels.length, cities: 2 },
+      respondents: panels.reduce(function (a, p) { return a + p.respondents; }, 0),
+      kelurahan: panels.length, cities: 2 },
     byProv: Object.keys(provMap).map(function (k) { return provMap[k]; }),
-    panels: panels, points: points,
-    qc: { unmatchedCount: 0, sample: [] } };
+    panels: panels, points: points };
 }
 var DEMO = makeDemo();
 
-// Palet warna tipe wilayah (urut sesuai kemunculan di data)
-var TYPE_COLORS = ['#C9A962', '#16A34A', '#2563EB', '#DC2626', '#7C3AED', '#EA580C', '#0891B2', '#65A30D', '#DB2777', '#57534E'];
+var TYPE_COLORS = ['#C9A962','#16A34A','#2563EB','#DC2626','#7C3AED','#EA580C','#0891B2','#65A30D','#DB2777','#57534E'];
 var typeColorMap = {};
 function colorOf(type) {
-  var t = (type || 'Lainnya').trim();
-  if (!typeColorMap[t]) {
-    typeColorMap[t] = TYPE_COLORS[Object.keys(typeColorMap).length % TYPE_COLORS.length];
-  }
+  var t = (type || 'Other').trim();
+  if (!typeColorMap[t]) typeColorMap[t] = TYPE_COLORS[Object.keys(typeColorMap).length % TYPE_COLORS.length];
   return typeColorMap[t];
 }
 
@@ -207,23 +189,20 @@ function initMap(id, center, zoom, points, attempt) {
   var el = document.getElementById(id);
   if (!el) return;
   if (typeof L === 'undefined') {
-    if (attempt < 25) setTimeout(function () { initMap(id, center, zoom, points, attempt + 1); }, 400);
+    if (attempt < 25) { setTimeout(function () { initMap(id, center, zoom, points, attempt + 1); }, 400); return; }
+    var leg = document.getElementById(id === 'mapJakarta' ? 'legendJakarta' : 'legendSurabaya');
+    if (leg) leg.innerHTML = '<span style="color:#DC2626">Map failed to load — CDN blocked by network/adblock.</span>';
     return;
   }
   if (maps[id]) maps[id].remove();
   var map = L.map(id).setView(center, zoom);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19, attribution: '&copy; OpenStreetMap'
-  }).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
   var bounds = [], typesPresent = {};
   points.forEach(function (pt) {
     var col = colorOf(pt.type);
-    typesPresent[pt.type || 'Lainnya'] = col;
-    var m = L.circleMarker([pt.lat, pt.lng], {
-      radius: 7, weight: 1, color: col, fillColor: col, fillOpacity: 0.85
-    }).addTo(map);
-    m.bindPopup('<strong>' + (pt.id || 'PSU') + '</strong><br>' +
-      (pt.kel || '') + (pt.kec ? ', ' + pt.kec : '') + '<br>Tipe: ' + (pt.type || '-'));
+    typesPresent[pt.type || 'Other'] = col;
+    var m = L.circleMarker([pt.lat, pt.lng], { radius: 7, weight: 1, color: col, fillColor: col, fillOpacity: 0.85 }).addTo(map);
+    m.bindPopup('<strong>' + (pt.id || 'PSU') + '</strong><br>' + (pt.kel || '') + (pt.kec ? ', ' + pt.kec : '') + '<br>Type: ' + (pt.type || '-'));
     bounds.push([pt.lat, pt.lng]);
   });
   if (bounds.length) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 13 });
@@ -234,17 +213,17 @@ function initMap(id, center, zoom, points, attempt) {
 function renderLegend(elId, typesPresent) {
   var el = document.getElementById(elId);
   if (!el) return;
-  var keys = Object.keys(typesPresent);
+  var keys = Object.keys(typesPresent || {});
   el.innerHTML = keys.map(function (t) {
     return '<span><span class="legend-dot" style="background:' + typesPresent[t] + '"></span>' + t + '</span>';
-  }).join('') || '<span>Belum ada data</span>';
+  }).join('') || '<span>No data yet</span>';
 }
 
 function isJakarta(s) { s = (s || '').toLowerCase(); return s.indexOf('jakarta') >= 0; }
 function isSurabaya(s) { s = (s || '').toLowerCase(); return s.indexOf('surabaya') >= 0; }
 
 function render(data) {
-  typeColorMap = {}; // reset warna tiap render
+  typeColorMap = {};
   var st = data.stats || {};
   document.getElementById('sumPsu').textContent = st.psuWorked != null ? st.psuWorked : '—';
   document.getElementById('sumResp').textContent = st.respondents != null ? st.respondents : '—';
@@ -253,18 +232,15 @@ function render(data) {
 
   document.getElementById('provBody').innerHTML = (data.byProv || []).map(function (p) {
     return '<tr><td class="cell-group">' + p.prov + '</td><td>' + p.psuWorked + '</td><td>' + p.kelurahan + '</td><td>' + p.respondents + '</td></tr>';
-  }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--medium)">Belum ada data</td></tr>';
+  }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--medium)">No data yet</td></tr>';
 
   document.getElementById('panelBody').innerHTML = (data.panels || []).map(function (p) {
     return '<tr><td class="cell-group">' + p.prov + '</td><td>' + p.kab + '</td><td>' + p.kec + '</td><td>' + p.kel + '</td><td>' + p.psuWorked + '</td><td>' + p.respondents + '</td></tr>';
-  }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--medium)">Belum ada data</td></tr>';
+  }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--medium)">No data yet</td></tr>';
 
   var pts = data.points || [];
-  var jkt = pts.filter(function (p) { return isJakarta(p.prov) || isJakarta(p.kab); });
-  var sby = pts.filter(function (p) { return isSurabaya(p.prov) || isSurabaya(p.kab); });
-  // PETA JAKARTA HANYA JAKARTA, SURABAYA HANYA SURABAYA
-  var tJkt = initMap('mapJakarta', [-6.23, 106.83], 11, jkt);
-  var tSby = initMap('mapSurabaya', [-7.27, 112.74], 12, sby);
+  var tJkt = initMap('mapJakarta', [-6.23, 106.83], 11, pts.filter(function (p) { return isJakarta(p.prov) || isJakarta(p.kab); }));
+  var tSby = initMap('mapSurabaya', [-7.27, 112.74], 12, pts.filter(function (p) { return isSurabaya(p.prov) || isSurabaya(p.kab); }));
   renderLegend('legendJakarta', tJkt || {});
   renderLegend('legendSurabaya', tSby || {});
 }
@@ -285,9 +261,7 @@ function loadDemo() { render(DEMO); setMode(false); }
 function fetchWithTimeout(url, ms) {
   return Promise.race([
     fetch(url).then(function (res) { return res.json(); }),
-    new Promise(function (_, reject) {
-      setTimeout(function () { reject(new Error('timeout')); }, ms);
-    })
+    new Promise(function (_, reject) { setTimeout(function () { reject(new Error('timeout')); }, ms); })
   ]);
 }
 
@@ -295,52 +269,48 @@ function loadLive() {
   fetchWithTimeout(API_URL + '?action=fieldwork', 15000)
     .then(function (data) {
       if (!data || !data.ok) { loadDemo(); return; }
-      render(data);
-      setMode(true);
+      render(data); setMode(true);
     })
-    .catch(function (e) {
-      console.warn('API tidak terjangkau (' + e.message + '), memakai data demo.', e);
-      loadDemo();
-    });
+    .catch(function (e) { console.warn('API unreachable (' + e.message + '), using demo.', e); loadDemo(); });
 }
 
 if (API_URL.indexOf('PASTE_URL') === 0) loadDemo(); else loadLive();
 </script>
+
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="logo">ME<span>VO</span></div>
-        <p class="footer-tagline">The Voice Behind Consumer Decisions</p>
-        <p class="footer-parent">A brand of PT Metadata Indonesia · Established 2008</p>
+        <p class="footer-tagline" data-en="The Voice Behind Consumer Decisions" data-id="Suara di Balik Keputusan Konsumen">The Voice Behind Consumer Decisions</p>
+        <p class="footer-parent" data-en="A brand of PT Metadata Indonesia · Established 2008" data-id="Merek dari PT Metadata Indonesia · Berdiri sejak 2008">A brand of PT Metadata Indonesia · Established 2008</p>
       </div>
       <div class="footer-col">
-        <h4>Services</h4>
-        <a href="services.html">Product Test</a>
-        <a href="services.html">Concept Test</a>
-        <a href="services.html">U&amp;A Studies</a>
-        <a href="services.html">Mystery Shopping</a>
-        <a href="services.html">Online Survey</a>
-        <a href="services.html">In-Home Placement</a>
+        <h4 data-en="Services" data-id="Layanan">Services</h4>
+        <a href="services.html"><span data-en="Product Test" data-id="Uji Produk">Product Test</span></a>
+        <a href="services.html"><span data-en="Concept Test" data-id="Uji Konsep">Concept Test</span></a>
+        <a href="services.html"><span data-en="U&amp;A Studies" data-id="Studi U&amp;A">U&amp;A Studies</span></a>
+        <a href="services.html"><span data-en="Mystery Shopping" data-id="Mystery Shopping">Mystery Shopping</span></a>
+        <a href="services.html"><span data-en="Online Survey" data-id="Survei Online">Online Survey</span></a>
+        <a href="services.html"><span data-en="In-Home Placement" data-id="Penempatan di Rumah">In-Home Placement</span></a>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
-        <a href="about.html">About MEVO</a>
-        <a href="process.html">Process</a>
+        <h4 data-en="Company" data-id="Perusahaan">Company</h4>
+        <a href="about.html"><span data-en="About MEVO" data-id="Tentang MEVO">About MEVO</span></a>
+        <a href="process.html"><span data-en="Process" data-id="Proses">Process</span></a>
         <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html"><span data-en="Contact" data-id="Kontak">Contact</span></a>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4 data-en="Contact" data-id="Kontak">Contact</h4>
         <a href="mailto:ganjar.satyanagara@metadata.co.id">ganjar.satyanagara@metadata.co.id</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 MEVO. All rights reserved.</span>
+      <span>&copy; 2026 MEVO. <span data-en="All rights reserved." data-id="Hak cipta dilindungi.">All rights reserved.</span></span>
       <span>Jakarta · Medan · Makassar · Surabaya</span>
     </div>
   </div>
 </footer>
-
 </body>
 </html>
