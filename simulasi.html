@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<title>Simulasi Rotasi PSU | MEVO</title>
+<meta name="description" content="Simulasi rotasi PSU MEVO - random multistage sampling dari master PSU per provinsi.">
+<style>
+.sim-wrap{max-width:860px;margin:0 auto}
+.sim-form-wrap{background:var(--white);border-radius:16px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.sim-echo{background:var(--navy);color:var(--white);border-radius:12px;padding:24px;margin-bottom:24px;font-size:14px;line-height:1.8}
+.sim-echo strong{color:var(--gold)}
+.sim-echo .se-label{display:inline-block;min-width:220px;color:rgba(255,255,255,.75)}
+@media(max-width:767px){.sim-form-wrap{padding:24px 18px}.sim-echo .se-label{display:block;min-width:0}}
+</style>
+<base target="_blank">
+</head>
+<body>
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" aria-label="MEVO home">ME<span>VO</span></a>
+    <nav class="nav-menu" aria-label="Main navigation">
+      <a href="services.html" class="nav-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+      <a href="about.html" class="nav-link"><span data-en="About" data-id="Tentang">About</span></a>
+      <a href="process.html" class="nav-link"><span data-en="Process" data-id="Proses">Process</span></a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="fieldwork.html" class="nav-link active">Fieldwork</a>
+      <a href="contact.html" class="btn-primary nav-cta"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
+      <button class="lang-switch" data-lang-toggle data-en="ID" data-id="EN" aria-label="Switch language">ID</button>
+    </nav>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+  </div>
+</header>
+<nav class="nav-mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-mobile-link"><span data-en="Home" data-id="Beranda">Home</span></a>
+  <a href="services.html" class="nav-mobile-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+  <a href="about.html" class="nav-mobile-link"><span data-en="About" data-id="Tentang">About</span></a>
+  <a href="process.html" class="nav-mobile-link"><span data-en="Process" data-id="Proses">Process</span></a>
+  <a href="faq.html" class="nav-mobile-link">FAQ</a>
+  <a href="fieldwork.html" class="nav-mobile-link active">Fieldwork</a>
+  <button class="nav-mobile-lang" data-lang-toggle data-en="Bahasa Indonesia" data-id="English">Bahasa Indonesia</button>
+  <a href="contact.html" class="btn-primary" style="margin-top:12px"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
+</nav>
+
+<section class="page-hero" style="padding-bottom:56px">
+  <div class="container page-hero-inner">
+    <div class="divider-badge reveal"></div>
+    <h1 class="reveal" style="transition-delay:.1s" data-en="PSU Rotation Simulation" data-id="Simulasi Rotasi PSU">PSU Rotation Simulation</h1>
+    <p class="reveal" style="transition-delay:.2s" data-en="Random multistage sampling from the master PSU frame — city, district, sub-district, RW, RT — with rotation filters." data-id="Sampling acak multistage dari master PSU - kota, kecamatan, kelurahan, RW, RT - dengan filter rotasi.">Random multistage sampling from the master PSU frame — city, district, sub-district, RW, RT — with rotation filters.</p>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="container sim-wrap">
+    <div class="sim-form-wrap reveal">
+      <form id="simForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="prov"><span data-en="Survey Province" data-id="Provinsi Survey">Survey Province</span> <span class="req">*</span></label>
+            <input class="form-input" list="provList" id="prov" required placeholder="DKI Jakarta / Jawa Timur">
+            <datalist id="provList"><option value="DKI Jakarta"><option value="Jawa Timur"></datalist>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="type"><span data-en="Sampling Type" data-id="Type Sampling">Sampling Type</span> <span class="req">*</span></label>
+            <select class="form-select" id="type" required>
+              <option value="A">Random Type A</option>
+              <option value="B">Random Type B</option>
+              <option value="KEL" data-en="Random Kelurahan" data-id="Random Kelurahan">Random Kelurahan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="booster"><span data-en="Booster" data-id="Booster">Booster</span></label>
+            <select class="form-select" id="booster">
+              <option value="0" data-en="No" data-id="Tidak">No</option>
+              <option value="1" data-en="Yes" data-id="Ya">Yes</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lainnya"><span data-en="Other" data-id="Lainnya">Other</span></label>
+            <input class="form-input" type="text" id="lainnya" data-en-ph="Notes (optional)" data-id-ph="Catatan (opsional)" placeholder="Notes (optional)">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="kelPerKec"><span data-en="Sub-districts per District" data-id="Jumlah Kelurahan per Kecamatan">Sub-districts per District</span> <span class="req">*</span></label>
+            <input class="form-input" type="number" id="kelPerKec" min="1" max="20" value="3" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="respPerPSU"><span data-en="Respondents per Selected PSU" data-id="Jumlah Responden per PSU Terpilih">Respondents per Selected PSU</span> <span class="req">*</span></label>
+            <input class="form-input" type="number" id="respPerPSU" min="1" max="50" value="6" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="psuLevel"><span data-en="Selected PSU Level" data-id="PSU Terpilih">Selected PSU Level</span> <span class="req">*</span></label>
+            <select class="form-select" id="psuLevel" required>
+              <option value="RT">RT</option>
+              <option value="RW">RW</option>
+              <option value="KEL" data-en="Kelurahan" data-id="Kelurahan">Kelurahan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="filter"><span data-en="Rotation Filter" data-id="Filter Rotasi">Rotation Filter</span></label>
+            <select class="form-select" id="filter">
+              <option value="NONE" data-en="No filter" data-id="Tanpa filter">No filter</option>
+              <option value="3M_NI">3 bulan terakhir (Tanpa Industri)</option>
+              <option value="6M_NI">6 bulan terakhir (Tanpa Industri)</option>
+              <option value="3M_IND">3 bulan terakhir (Dengan Industri)</option>
+              <option value="6M_IND">6 bulan terakhir (Dengan Industri)</option>
+            </select>
+          </div>
+          <div class="form-group full hidden" id="industryGroup">
+            <label class="form-label" for="industry"><span data-en="Industry" data-id="Industri">Industry</span> <span class="req">*</span></label>
+            <select class="form-select" id="industry">
+              <option>Peralatan Rumah Tangga</option>
+              <option>Perawatan Rumah Tangga</option>
+              <option>Perawatan Tubuh (Termasuk Rambut)</option>
+              <option>F&amp;B</option>
+              <option>Telco</option>
+              <option>Kendaraan</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-submit-wrap">
+          <button type="submit" class="btn-primary" id="simBtn"><span data-en="Run Simulation" data-id="Jalankan Simulasi">Run Simulation</span></button>
+          <p class="form-note" data-en="Output follows the master PSU frame: RT (or street name), RW, sub-district, district, city, province." data-id="Output mengikuti master PSU: RT (atau nama jalan), RW, kelurahan, kecamatan, kota, provinsi.">Output follows the master PSU frame: RT (or street name), RW, sub-district, district, city, province.</p>
+        </div>
+      </form>
+    </div>
+
+    <div id="simResult" class="hidden" style="margin-top:40px">
+      <div class="sim-echo" id="simEcho"></div>
+      <div class="attr-block">
+        <h3 data-en="Simulation Output" data-id="Hasil Simulasi">Simulation Output</h3>
+        <p class="map-sub" id="simSummary"></p>
+        <div class="quota-table-wrap"><table class="quota-table">
+          <thead><tr>
+            <th data-en="Province" data-id="Provinsi">Province</th><th data-en="City" data-id="Kota">City</th>
+            <th data-en="District" data-id="Kecamatan">District</th><th data-en="Sub-district" data-id="Kelurahan">Sub-district</th>
+            <th>RW</th><th>RT / <span data-en="Street" data-id="Jalan">Street</span></th>
+            <th data-en="Resp/PSU" data-id="Resp/PSU">Resp/PSU</th>
+          </tr></thead>
+          <tbody id="simBody"></tbody>
+        </table></div>
+        <p class="map-sub" style="margin-top:14px" data-en="Need the full list of selected PSU IDs? Contact us." data-id="Butuh daftar lengkap ID PSU terpilih? Hubungi kami.">Need the full list of selected PSU IDs? <a href="contact.html">Contact us</a>.</p>
+      </div>
+    </div>
+
+    <div class="demo-note hidden" id="simError"></div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-inner reveal">
+    <h2 data-en="Ready for Real Fieldwork?" data-id="Siap Kerja Lapangan Nyata?">Ready for Real Fieldwork?</h2>
+    <p data-en="This simulation uses the live master PSU frame. Contact us to run your actual study." data-id="Simulasi ini memakai master PSU aktif. Hubungi kami untuk menjalankan studi Anda yang sesungguhnya.">This simulation uses the live master PSU frame. Contact us to run your actual study.</p>
+    <a href="contact.html" class="btn-primary"><span data-en="Contact Us" data-id="Hubungi Kami">Contact Us</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">ME<span>VO</span></div>
+        <p class="footer-tagline" data-en="The Voice Behind Consumer Decisions" data-id="Suara di Balik Keputusan Konsumen">The Voice Behind Consumer Decisions</p>
+        <p class="footer-parent" data-en="A brand of PT Metadata Indonesia · Established 2008" data-id="Merek dari PT Metadata Indonesia · Berdiri sejak 2008">A brand of PT Metadata Indonesia · Established 2008</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Services" data-id="Layanan">Services</h4>
+        <a href="services.html"><span data-en="Product Test" data-id="Uji Produk">Product Test</span></a>
+        <a href="services.html"><span data-en="Concept Test" data-id="Uji Konsep">Concept Test</span></a>
+        <a href="services.html"><span data-en="U&amp;A Studies" data-id="Studi U&amp;A">U&amp;A Studies</span></a>
+        <a href="services.html"><span data-en="Mystery Shopping" data-id="Mystery Shopping">Mystery Shopping</span></a>
+        <a href="services.html"><span data-en="Online Survey" data-id="Survei Online">Online Survey</span></a>
+        <a href="services.html"><span data-en="In-Home Placement" data-id="Penempatan di Rumah">In-Home Placement</span></a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Company" data-id="Perusahaan">Company</h4>
+        <a href="about.html"><span data-en="About MEVO" data-id="Tentang MEVO">About MEVO</span></a>
+        <a href="process.html"><span data-en="Process" data-id="Proses">Process</span></a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html"><span data-en="Contact" data-id="Kontak">Contact</span></a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Contact" data-id="Kontak">Contact</h4>
+        <a href="mailto:ganjar.satyanagara@metadata.co.id">ganjar.satyanagara@metadata.co.id</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 MEVO. <span data-en="All rights reserved." data-id="Hak cipta dilindungi.">All rights reserved.</span></span>
+      <span>Jakarta · Medan · Makassar · Surabaya</span>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+<script>
+var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNuUPAfj7cg6e7Ebnk3Op94vIU6W4/exec';
+
+var filterSel = document.getElementById('filter');
+var industryGroup = document.getElementById('industryGroup');
+filterSel.addEventListener('change', function () {
+  industryGroup.classList.toggle('hidden', filterSel.value.indexOf('IND') < 0);
+});
+
+document.getElementById('simForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var btn = document.getElementById('simBtn');
+  btn.disabled = true;
+  var params = 'action=simulate'
+    + '&prov=' + encodeURIComponent(document.getElementById('prov').value.trim())
+    + '&type=' + encodeURIComponent(document.getElementById('type').value)
+    + '&booster=' + encodeURIComponent(document.getElementById('booster').value)
+    + '&lainnya=' + encodeURIComponent(document.getElementById('lainnya').value.trim())
+    + '&kelPerKec=' + encodeURIComponent(document.getElementById('kelPerKec').value)
+    + '&respPerPSU=' + encodeURIComponent(document.getElementById('respPerPSU').value)
+    + '&psuLevel=' + encodeURIComponent(document.getElementById('psuLevel').value)
+    + '&filter=' + encodeURIComponent(filterSel.value)
+    + '&industry=' + encodeURIComponent(document.getElementById('industry').value);
+  var errEl = document.getElementById('simError');
+  errEl.classList.add('hidden');
+  fetch(API_URL + '?' + params)
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      btn.disabled = false;
+      if (!data.ok) { errEl.textContent = 'Error: ' + (data.error || 'unknown'); errEl.classList.remove('hidden'); return; }
+      renderSim(data);
+    })
+    .catch(function (err) {
+      btn.disabled = false;
+      errEl.textContent = 'Gagal menghubungi backend: ' + err.message;
+      errEl.classList.remove('hidden');
+    });
+});
+
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+function renderSim(data) {
+  var inp = data.input, sm = data.summary;
+  var echo = '<strong>' + esc(inp.provinsi) + '</strong><br>'
+    + '<span class="se-label">Type Sampling</span>: ' + esc(inp.type) + '<br>'
+    + '<span class="se-label">Booster</span>: ' + esc(inp.booster) + '<br>'
+    + '<span class="se-label">Lainnya</span>: ' + esc(inp.lainnya) + '<br>'
+    + '<span class="se-label">Kelurahan per Kecamatan</span>: ' + esc(inp.kelPerKec) + '<br>'
+    + '<span class="se-label">Responden per PSU</span>: ' + esc(inp.respPerPSU) + '<br>'
+    + '<span class="se-label">PSU Terpilih</span>: ' + esc(inp.psuLevel) + '<br>'
+    + '<span class="se-label">Filter Rotasi</span>: ' + esc(inp.filter) + (inp.filter.indexOf('IND') >= 0 ? ' (' + esc(inp.industry) + ')' : '') + '<br>'
+    + '<span class="se-label">PSU ter-eksklusi (rotasi)</span>: ' + esc(sm.excludedPSU);
+  document.getElementById('simEcho').innerHTML = echo;
+  document.getElementById('simSummary').textContent =
+    'Kota terpilih: ' + sm.kab + ' | Kecamatan: ' + sm.kecamatan + ' | Kelurahan terpilih: ' + sm.kelurahan
+    + ' | Riwayat Panel_Raw: ' + sm.historyRows + ' baris';
+  document.getElementById('simBody').innerHTML = (data.rows || []).map(function (r) {
+    var rtCell = (r.rt && r.rt !== '-') ? r.rt : (r.street ? esc(r.street) : '-');
+    return '<tr><td class="cell-group">' + esc(r.prov) + '</td><td>' + esc(r.kab) + '</td><td>' + esc(r.kec) + '</td><td>' + esc(r.kel) + '</td><td>' + esc(r.rw) + '</td><td>' + rtCell + '</td><td>' + esc(r.resp) + '</td></tr>';
+  }).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--medium)">Tidak ada PSU eligible (semua ter-eksklusi filter)</td></tr>';
+  document.getElementById('simResult').classList.remove('hidden');
+  document.getElementById('simResult').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
