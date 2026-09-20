@@ -2,6 +2,37 @@
 (function () {
   'use strict';
 
+  /* ================= DUAL LANGUAGE (EN / ID) ================= */
+  function applyLang(lang) {
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      var t = el.getAttribute('data-' + lang);
+      if (t !== null && t !== undefined) el.textContent = t;
+    });
+    document.querySelectorAll('[data-en-ph]').forEach(function (el) {
+      var t = el.getAttribute('data-' + lang + '-ph');
+      if (t) el.setAttribute('placeholder', t);
+    });
+    document.querySelectorAll('[data-lang-toggle]').forEach(function (b) {
+      b.textContent = (lang === 'id') ? 'EN' : 'ID';
+      b.setAttribute('aria-label', (lang === 'id') ? 'Switch to English' : 'Ganti ke Bahasa Indonesia');
+    });
+    document.documentElement.setAttribute('lang', lang);
+    try { localStorage.setItem('mevo_lang', lang); } catch (e) {}
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-lang-toggle]');
+    if (!b) return;
+    var cur = document.documentElement.getAttribute('lang') === 'id' ? 'id' : 'en';
+    applyLang(cur === 'id' ? 'en' : 'id');
+  });
+  var saved = 'en';
+  try { saved = localStorage.getItem('mevo_lang') || 'en'; } catch (e) {}
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { applyLang(saved); });
+  } else {
+    applyLang(saved);
+  }
+
   // Mobile menu
   var burger = document.getElementById('hamburger');
   var mobileMenu = document.getElementById('mobileMenu');

@@ -273,3 +273,9 @@ table.quota-table{width:100%;border-collapse:collapse;min-width:760px}
 /* Fieldwork — catatan QC (ID PSU tidak cocok) */
 .qc-note{max-width:860px;margin:0 auto 32px;background:#FEE2E2;color:#991B1B;border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.6}
 .qc-note code{background:rgba(255,255,255,.6);padding:1px 6px;border-radius:4px}
+.map-legend{flex-wrap:wrap;row-gap:8px}
+
+/* Language switcher */
+.lang-switch{background:transparent;border:1.5px solid var(--navy);color:var(--navy);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .2s ease;margin-left:16px;min-width:44px}
+.lang-switch:hover{background:var(--navy);color:var(--white)}
+.nav-mobile-lang{display:block;margin-top:20px;background:none;border:none;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--gold);cursor:pointer;padding:12px 0;text-align:left}
