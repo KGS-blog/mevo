@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<title>Demo Progress — Project Monitoring | MEVO</title>
+<meta name="description" content="MEVO demo project progress: quota achievement, respondent per PSU, fieldwork timeline, and approved automatic PSU relocation.">
+<style>
+/* Demo Progress */
+.pg-echo{background:var(--navy);color:var(--white);border-radius:12px;padding:24px;margin-bottom:32px;font-size:14px;line-height:1.8}
+.pg-echo strong{color:var(--gold)}
+.pg-echo .pe-label{display:inline-block;min-width:200px;color:rgba(255,255,255,.75)}
+.tl-wrap{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.tl-phase{flex:1;min-width:170px;background:var(--white);border-radius:12px;padding:20px 16px;box-shadow:0 4px 20px rgba(0,0,0,.06);border-top:4px solid var(--light);position:relative}
+.tl-phase.done{border-top-color:#16A34A}
+.tl-phase.current{border-top-color:var(--gold)}
+.tl-phase .tl-name{font-weight:600;font-size:14px;color:var(--navy);margin-bottom:4px}
+.tl-phase .tl-date{font-size:12px;color:var(--medium);margin-bottom:12px}
+.tl-phase .tl-state{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:10px}
+.tl-phase.done .tl-state{background:#D1FAE5;color:#065F46}
+.tl-phase.current .tl-state{background:#FEF3C7;color:#92400E}
+.tl-phase.upcoming .tl-state{background:var(--soft);color:var(--medium)}
+.move-banner{background:#FEF3C7;color:#92400E;border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.65;margin-bottom:20px}
+.status-chip{display:inline-block;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:600;background:#FEF3C7;color:#92400E}
+@media(max-width:767px){.tl-phase{min-width:100%}}
+</style>
+<base target="_blank">
+</head>
+<body>
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo" aria-label="MEVO home">ME<span>VO</span></a>
+    <nav class="nav-menu" aria-label="Main navigation">
+      <a href="services.html" class="nav-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+      <a href="about.html" class="nav-link"><span data-en="About" data-id="Tentang">About</span></a>
+      <a href="process.html" class="nav-link"><span data-en="Process" data-id="Proses">Process</span></a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="fieldwork.html" class="nav-link active">Fieldwork</a>
+      <a href="contact.html" class="btn-primary nav-cta"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
+      <button class="lang-switch" data-lang-toggle data-en="ID" data-id="EN" aria-label="Switch language">ID</button>
+    </nav>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+  </div>
+</header>
+<nav class="nav-mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-mobile-link"><span data-en="Home" data-id="Beranda">Home</span></a>
+  <a href="services.html" class="nav-mobile-link"><span data-en="Services" data-id="Layanan">Services</span></a>
+  <a href="about.html" class="nav-mobile-link"><span data-en="About" data-id="Tentang">About</span></a>
+  <a href="process.html" class="nav-mobile-link"><span data-en="Process" data-id="Proses">Process</span></a>
+  <a href="faq.html" class="nav-mobile-link">FAQ</a>
+  <a href="fieldwork.html" class="nav-mobile-link active">Fieldwork</a>
+  <button class="nav-mobile-lang" data-lang-toggle data-en="Bahasa Indonesia" data-id="English">Bahasa Indonesia</button>
+  <a href="contact.html" class="btn-primary" style="margin-top:12px"><span data-en="Discuss Your Study" data-id="Diskusikan Studi Anda">Discuss Your Study</span></a>
+</nav>
+
+<section class="page-hero" style="padding-bottom:56px">
+  <div class="container page-hero-inner">
+    <div class="divider-badge reveal"></div>
+    <h1 class="reveal" style="transition-delay:.1s" data-en="Demo Project Progress" data-id="Demo Progress Proyek">Demo Project Progress</h1>
+    <p class="reveal" style="transition-delay:.2s" data-en="Live-style monitoring for clients: quota, achievement per PSU, fieldwork timeline, and PSU relocation status." data-id="Pemantauan gaya-live untuk klien: kuota, capaian per PSU, timeline fieldwork, dan status perpindahan PSU.">Live-style monitoring for clients: quota, achievement per PSU, fieldwork timeline, and PSU relocation status.</p>
+    <div class="study-meta reveal" style="transition-delay:.3s;margin-top:24px">
+      <span>Project: <strong>PT Demo FMCG — Product Test 2026</strong></span>
+      <span>Period: <strong>1 – 30 Sep 2026</strong></span>
+      <span>Status: <strong>In Field</strong></span>
+      <span>Mode: <strong><span class="status-badge risk">DEMO</span></strong></span>
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="container">
+
+    <div class="summary-cards">
+      <div class="summary-card reveal" style="transition-delay:.05s">
+        <div class="summary-label" data-en="Sample Target" data-id="Target Sample">Sample Target</div>
+        <div class="summary-value">360</div>
+        <div class="summary-sub" data-en="Respondents (N)" data-id="Responden (N)">Respondents (N)</div>
+      </div>
+      <div class="summary-card reveal" style="transition-delay:.1s">
+        <div class="summary-label" data-en="Respondents In" data-id="Responden Masuk">Respondents In</div>
+        <div class="summary-value">241</div>
+        <div class="summary-sub"><span class="progress-track" style="width:100%"><span class="progress-fill" style="width:67%"></span></span>&nbsp; 119 remaining</div>
+      </div>
+      <div class="summary-card reveal" style="transition-delay:.15s">
+        <div class="summary-label" data-en="Achievement" data-id="Achievement">Achievement</div>
+        <div class="summary-value">67%</div>
+        <div class="summary-sub" data-en="On schedule" data-id="Sesuai jadwal">On schedule</div>
+      </div>
+      <div class="summary-card reveal" style="transition-delay:.2s">
+        <div class="summary-label">PSU</div>
+        <div class="summary-value">60</div>
+        <div class="summary-sub">3 <span data-en="relocations" data-id="perpindahan">relocations</span></div>
+      </div>
+    </div>
+
+    <div class="attr-block reveal">
+      <h3 data-en="Quota per Attribute" data-id="Kuota per Atribut">Quota per Attribute</h3>
+      <p class="map-sub" data-en="Demo structure following the study screener (A1-A6)" data-id="Struktur demo mengikuti skreener studi (A1–A6)">Demo structure following the study screener (A1-A6)</p>
+      <div id="quotaBlocks"></div>
+    </div>
+
+    <div class="attr-block reveal">
+      <h3 data-en="Respondent Achievement per PSU" data-id="Achievement Responden per PSU">Respondent Achievement per PSU</h3>
+      <p class="map-sub" data-en="Demo extract — full list available on request" data-id="Ekstrak demo — daftar lengkap tersedia atas permintaan">Demo extract — full list available on request</p>
+      <div class="quota-table-wrap"><table class="quota-table">
+        <thead><tr><th>ID PSU</th><th data-en="Sub-district" data-id="Kelurahan">Sub-district</th><th data-en="District" data-id="Kecamatan">District</th><th data-en="Target" data-id="Target">Target</th><th data-en="Achieved" data-id="Terkumpul">Achieved</th><th data-en="Progress" data-id="Progress">Progress</th><th>Status</th></tr></thead>
+        <tbody id="psuBody"></tbody>
+      </table></div>
+    </div>
+
+    <div class="attr-block reveal">
+      <h3 data-en="Fieldwork Timeline" data-id="Timeline Fieldwork">Fieldwork Timeline</h3>
+      <p class="map-sub" data-en="Phase progress with schedule" data-id="Progres tiap fase beserta jadwal">Phase progress with schedule</p>
+      <div class="tl-wrap" id="tlWrap"></div>
+    </div>
+
+    <div class="attr-block reveal">
+      <h3 data-en="PSU Relocation" data-id="Perpindahan PSU">PSU Relocation</h3>
+      <div class="move-banner">
+        <strong data-en="Relocation policy:" data-id="Kebijakan perpindahan:">Relocation policy:</strong>
+        <span data-en="If target respondents are not found at a selected PSU, the PSU is replaced automatically via randomization from the master PSU frame (Automatic PSU random), as approved by the client." data-id="Apabila responden target tidak ditemukan pada PSU terpilih, PSU diganti secara otomatis melalui randomisasi dari frame master PSU (Automatic PSU random), sesuai persetujuan klien.">If target respondents are not found at a selected PSU, the PSU is replaced automatically via randomization from the master PSU frame (Automatic PSU random), as approved by the client.</span>
+      </div>
+      <div class="quota-table-wrap"><table class="quota-table">
+        <thead><tr><th data-en="Original PSU" data-id="PSU Awal">Original PSU</th><th data-en="Original Area" data-id="Wilayah Awal">Original Area</th><th data-en="Replacement PSU" data-id="PSU Pengganti">Replacement PSU</th><th data-en="New Area" data-id="Wilayah Baru">New Area</th><th data-en="Reason" data-id="Alasan">Reason</th><th data-en="Method" data-id="Metode">Method</th><th data-en="Date" data-id="Tanggal">Date</th><th>Status</th></tr></thead>
+        <tbody id="moveBody"></tbody>
+      </table></div>
+    </div>
+
+    <div class="demo-note reveal">
+      <strong>Demo data.</strong> <span data-en="This page shows the client-facing progress design with sample numbers. It can be connected to the live backend (Panel_Raw / quota sheets) when ready." data-id="Halaman ini menampilkan desain progress untuk klien dengan angka contoh. Dapat dihubungkan ke backend live (Panel_Raw / sheet kuota) kapan saja.">This page shows the client-facing progress design with sample numbers. It can be connected to the live backend (Panel_Raw / quota sheets) when ready.</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-inner reveal">
+    <h2 data-en="Want Live Progress For Your Project?" data-id="Ingin Progress Live untuk Proyek Anda?">Want Live Progress For Your Project?</h2>
+    <p data-en="This demo becomes a real client dashboard once your study is in the field. Let us discuss your project." data-id="Demo ini menjadi dashboard klien nyata begitu studi Anda berjalan. Mari diskusikan proyek Anda.">This demo becomes a real client dashboard once your study is in the field. Let us discuss your project.</p>
+    <a href="contact.html" class="btn-primary"><span data-en="Contact MEVO" data-id="Kontak MEVO">Contact MEVO</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">ME<span>VO</span></div>
+        <p class="footer-tagline" data-en="The Voice Behind Consumer Decisions" data-id="Suara di Balik Keputusan Konsumen">The Voice Behind Consumer Decisions</p>
+        <p class="footer-parent" data-en="A brand of PT Metadata Indonesia · Established 2008" data-id="Merek dari PT Metadata Indonesia · Berdiri sejak 2008">A brand of PT Metadata Indonesia · Established 2008</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Services" data-id="Layanan">Services</h4>
+        <a href="services.html"><span data-en="Product Test" data-id="Uji Produk">Product Test</span></a>
+        <a href="services.html"><span data-en="Concept Test" data-id="Uji Konsep">Concept Test</span></a>
+        <a href="services.html"><span data-en="U&amp;A Studies" data-id="Studi U&amp;A">U&amp;A Studies</span></a>
+        <a href="services.html"><span data-en="Mystery Shopping" data-id="Mystery Shopping">Mystery Shopping</span></a>
+        <a href="services.html"><span data-en="Online Survey" data-id="Survei Online">Online Survey</span></a>
+        <a href="services.html"><span data-en="In-Home Placement" data-id="Penempatan di Rumah">In-Home Placement</span></a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Company" data-id="Perusahaan">Company</h4>
+        <a href="about.html"><span data-en="About MEVO" data-id="Tentang MEVO">About MEVO</span></a>
+        <a href="process.html"><span data-en="Process" data-id="Proses">Process</span></a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html"><span data-en="Contact" data-id="Kontak">Contact</span></a>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Contact" data-id="Kontak">Contact</h4>
+        <a href="contact.html"><span data-en="Contact MEVO" data-id="Kontak MEVO">Contact MEVO</span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 MEVO. <span data-en="All rights reserved." data-id="Hak cipta dilindungi.">All rights reserved.</span></span>
+      <span>Jakarta · Medan · Makassar · Surabaya</span>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+<script>
+// progress.html — v2026.09.21-1 (demo data)
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function pctBar(done, total){
+  var pct = total ? Math.round(done/total*100) : 0;
+  var color = pct >= 100 ? '#16A34A' : 'var(--gold)';
+  return '<span class="progress-track" style="width:130px"><span class="progress-fill" style="width:'+pct+'%;background:'+color+'"></span></span>&nbsp; '+pct+'%';
+}
+function badge(done, total){
+  var pct = total ? done/total : 0;
+  var cls = done >= total ? 'complete' : (pct < 0.6 ? 'risk' : 'ontrack');
+  var txt = done >= total ? 'Complete' : (pct < 0.6 ? 'At Risk' : 'On Track');
+  return '<span class="status-badge '+cls+'">'+txt+'</span>';
+}
+
+var QUOTA = [
+  { code:'A1', name:'Kota', ref:'SCR1.Q2', options:[
+    {label:'Jakarta', pct:50, target:180, done:122},
+    {label:'Surabaya', pct:50, target:180, done:119} ]},
+  { code:'A2', name:'Usia', ref:'SCR1.Q5', options:[
+    {label:'18–34', pct:51, target:184, done:123},
+    {label:'35–49', pct:44, target:158, done:105},
+    {label:'50–75', pct:5, target:18, done:13} ]},
+  { code:'A3', name:'LSM', ref:'SCR1.Q6', options:[
+    {label:'LSM 4-6', pct:52, target:187, done:125},
+    {label:'LSM 7+', pct:48, target:173, done:116} ]},
+  { code:'A4', name:'Cara Mencuci', ref:'SCR1.Q13', options:[
+    {label:'Mencuci dengan tangan', pct:70, target:252, done:169},
+    {label:'Mencuci dengan mesin cuci', pct:30, target:108, done:72} ]},
+  { code:'A5', name:'Kemasan – P6M', ref:'SCR1.Q17', options:[
+    {label:'Sachet User', pct:100, target:360, done:241} ]},
+  { code:'A6', name:'Pelembut Pakaian BUMO – P6M', ref:'SCR1.Q22', options:[
+    {label:'Molto Sunshine Bloom (Pink)', pct:50, target:180, done:120},
+    {label:'Downy Floral Pink', pct:50, target:180, done:121} ]}
+];
+
+var PSU = [
+  {id:'PSU022036', kel:'Manggarai', kec:'Tebet', target:6, done:6},
+  {id:'PSU039571', kel:'Manggarai', kec:'Tebet', target:6, done:5},
+  {id:'PSU021850', kel:'Kebon Baru', kec:'Tebet', target:6, done:6},
+  {id:'PSU039575', kel:'Cipinang Besar Utara', kec:'Jatinegara', target:6, done:4},
+  {id:'PSU039582', kel:'Kalibata', kec:'Pancoran', target:6, done:6},
+  {id:'PSU003850', kel:'Bendungan Hilir', kec:'Tanah Abang', target:6, done:5},
+  {id:'PSU015463', kel:'Palmerah', kec:'Palmerah', target:6, done:3},
+  {id:'PSU024419', kel:'Ciracas', kec:'Ciracas', target:6, done:6},
+  {id:'PSU039614', kel:'Pondok Pinang', kec:'Kebayoran Lama', target:6, done:4},
+  {id:'PSU039631', kel:'Dupak', kec:'Krembangan', target:6, done:6},
+  {id:'PSU039635', kel:'Dr. Soetomo', kec:'Tegalsari', target:6, done:5},
+  {id:'PSU039657', kel:'Lidah Wetan', kec:'Lakarsantri', target:6, done:5}
+];
+
+var TIMELINE = [
+  {name:'Rekrutmen', en:'Recruitment', date:'1–5 Sep', state:'done', pct:100},
+  {name:'Penempatan Produk', en:'Product Placement', date:'6–8 Sep', state:'done', pct:100},
+  {name:'Pengumpulan Data', en:'Data Collection', date:'9–25 Sep', state:'current', pct:62},
+  {name:'QC & Validasi', en:'QC & Validation', date:'26–28 Sep', state:'upcoming', pct:0},
+  {name:'Penyerahan', en:'Delivery', date:'29–30 Sep', state:'upcoming', pct:0}
+];
+
+var MOVES = [
+  {from:'PSU021849', fromArea:'Kebon Baru, Tebet', to:'PSU040112', toArea:'Bukit Duri, Jatinegara', reason:'Responden target tidak ditemukan', enReason:'Target respondents not found', method:'Automatic PSU random', date:'14 Sep 2026'},
+  {from:'PSU039589', fromArea:'Tomang, Grogol Petamburan', to:'PSU040207', toArea:'Pegangsaan, Menteng', reason:'Responden target tidak ditemukan', enReason:'Target respondents not found', method:'Automatic PSU random', date:'17 Sep 2026'},
+  {from:'PSU039677', fromArea:'Sungai Bambu, Tanjung Priok', to:'PSU040315', toArea:'Semper Barat, Cilincing', reason:'Responden target tidak ditemukan', enReason:'Target respondents not found', method:'Automatic PSU random', date:'20 Sep 2026'}
+];
+
+// render quota
+document.getElementById('quotaBlocks').innerHTML = QUOTA.map(function(a){
+  var rows = a.options.map(function(o){
+    return '<tr><td class="cell-group">'+esc(o.label)+'</td><td>'+o.pct+'%</td><td>'+o.target+'</td><td>'+o.done+'</td><td>'+Math.max(0,o.target-o.done)+'</td><td>'+pctBar(o.done,o.target)+'</td><td>'+badge(o.done,o.target)+'</td></tr>';
+  }).join('');
+  return '<div style="margin-bottom:24px"><h3 style="font-size:16px">'+a.code+' · '+esc(a.name)+'</h3>'+
+    '<p class="map-sub">'+a.ref+'</p>'+
+    '<div class="quota-table-wrap"><table class="quota-table"><thead><tr><th data-en="Option" data-id="Opsi">Option</th><th>%</th><th data-en="Target" data-id="Target">Target</th><th data-en="Achieved" data-id="Terkumpul">Achieved</th><th data-en="Remaining" data-id="Sisa">Remaining</th><th data-en="Progress" data-id="Progress">Progress</th><th>Status</th></tr></thead><tbody>'+
+    rows +'</tbody></table></div></div>';
+}).join('');
+
+// render PSU achievement
+document.getElementById('psuBody').innerHTML = PSU.map(function(p){
+  return '<tr><td class="cell-group">'+esc(p.id)+'</td><td>'+esc(p.kel)+'</td><td>'+esc(p.kec)+'</td><td>'+p.target+'</td><td>'+p.done+'</td><td>'+pctBar(p.done,p.target)+'</td><td>'+badge(p.done,p.target)+'</td></tr>';
+}).join('');
+
+// render timeline
+document.getElementById('tlWrap').innerHTML = TIMELINE.map(function(t){
+  var stateTxt = t.state==='done' ? 'Selesai' : (t.state==='current' ? 'Berjalan' : 'Akan datang');
+  return '<div class="tl-phase '+t.state+' reveal">'+
+    '<span class="tl-state">'+stateTxt+'</span>'+
+    '<div class="tl-name">'+t.name+'</div>'+
+    '<div class="tl-date">'+t.date+'</div>'+
+    '<span class="progress-track" style="width:100%"><span class="progress-fill" style="width:'+t.pct+'%;background:'+(t.state==='done'?'#16A34A':'var(--gold)')+'"></span></span>&nbsp; '+t.pct+'%'+
+    '</div>';
+}).join('');
+
+// render PSU relocation
+document.getElementById('moveBody').innerHTML = MOVES.map(function(m){
+  return '<tr><td class="cell-group">'+esc(m.from)+'</td><td>'+esc(m.fromArea)+'</td><td class="cell-group">'+esc(m.to)+'</td><td>'+esc(m.toArea)+'</td>'+
+    '<td><span data-en="'+esc(m.enReason)+'" data-id="'+esc(m.reason)+'">'+esc(m.reason)+'</span></td>'+
+    '<td>'+esc(m.method)+'</td><td>'+esc(m.date)+'</td><td><span class="status-chip" data-en="Approved by Client" data-id="Disetujui Klien">Disetujui Klien</span></td></tr>';
+}).join('');
+</script>
+</body>
+</html>
