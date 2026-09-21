@@ -17,7 +17,6 @@
 .sim-echo .se-label{display:inline-block;min-width:220px;color:rgba(255,255,255,.75)}
 @media(max-width:767px){.sim-form-wrap{padding:24px 18px}.sim-echo .se-label{display:block;min-width:0}}
 </style>
-<base target="_blank">
 </head>
 <body>
 <header class="navbar" id="navbar">
@@ -56,6 +55,7 @@
 
 <section class="section-soft">
   <div class="container sim-wrap">
+    <p class="map-sub" style="text-align:center;margin-bottom:16px">Backend: <strong id="backendVer">memeriksa...</strong></p>
     <div class="sim-form-wrap reveal">
       <form id="simForm">
         <div class="form-grid">
@@ -196,6 +196,18 @@
 <script src="main.js"></script>
 <script>
 var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNuUPAfj7cg6e7Ebnk3Op94vIU6W4/exec';
+
+// Status backend saat halaman dibuka
+fetch(API_URL + '?action=ping')
+  .then(function (r) { return r.json(); })
+  .then(function (d) {
+    var el = document.getElementById('backendVer');
+    if (el) el.textContent = d.ok ? ('online ' + (d.time || '')) : ('error: ' + (d.error || '-'));
+  })
+  .catch(function (e) {
+    var el = document.getElementById('backendVer');
+    if (el) { el.textContent = 'TIDAK TERHUBUNG (' + e.message + ')'; el.style.color = '#DC2626'; }
+  });
 
 var filterSel = document.getElementById('filter');
 var industryGroup = document.getElementById('industryGroup');
