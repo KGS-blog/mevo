@@ -45,6 +45,7 @@
     <h1 class="reveal" style="transition-delay:.1s">Fieldwork</h1>
     <p class="reveal" style="transition-delay:.2s" data-en="Locations where MEVO has conducted fieldwork — from dense residential areas to commercial districts." data-id="Lokasi-lokasi di mana MEVO telah melaksanakan fieldwork — dari permukiman padat hingga kawasan komersial.">Locations where MEVO has conducted fieldwork — from dense residential areas to commercial districts.</p>
     <div class="study-meta reveal" style="transition-delay:.3s;margin-top:24px">
+      <span>Backend: <strong id="backendVer">-</strong></span>
       <span>Mode: <strong><span class="status-badge complete" id="dataMode">LOADING</span></strong></span>
       <span>Last updated: <strong id="lastUpdated">—</strong></span>
     </div>
@@ -229,6 +230,8 @@ function isSurabaya(s) { s = (s || '').toLowerCase(); return s.indexOf('surabaya
 
 function render(data) {
   typeColorMap = {};
+  var bv = document.getElementById('backendVer');
+  if (bv) bv.textContent = data.version || 'versi lama (redeploy fieldwork.gs)';
   var st = data.stats || {};
   document.getElementById('sumPsu').textContent = st.psuWorked != null ? st.psuWorked : '-';
   document.getElementById('sumResp').textContent = st.respondents != null ? st.respondents : '-';
@@ -261,7 +264,8 @@ function setMode(live) {
     d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
 }
 
-function loadDemo() { render(DEMO); setMode(false); }
+function loadDemo() { render(DEMO); setMode(false);
+  var bv = document.getElementById('backendVer'); if (bv) bv.textContent = '(demo)'; }
 
 function fetchWithTimeout(url, ms) {
   return Promise.race([
@@ -270,13 +274,28 @@ function fetchWithTimeout(url, ms) {
   ]);
 }
 
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+function showBackendError(msg) {
+  var note = document.getElementById('demoNote');
+  note.classList.remove('hidden');
+  note.style.background = '#FEE2E2';
+  note.style.color = '#991B1B';
+  note.innerHTML = '<strong>Backend error:</strong> ' + msg +
+    '<br><span style="font-size:12px">Halaman menampilkan data demo. Perbaiki backend lalu refresh.</span>';
+}
+
 function loadLive() {
-  fetchWithTimeout(API_URL + '?action=fieldwork', 15000)
+  fetchWithTimeout(API_URL + '?action=fieldwork', 20000)
     .then(function (data) {
-      if (!data || !data.ok) { loadDemo(); return; }
+      if (!data) { showBackendError('Respons kosong dari ' + API_URL.slice(0, 60) + '...'); loadDemo(); return; }
+      if (!data.ok) { showBackendError(esc(String(data.error || 'ok=false tanpa pesan'))); loadDemo(); return; }
       render(data); setMode(true);
     })
-    .catch(function (e) { console.warn('API unreachable (' + e.message + '), using demo.', e); loadDemo(); });
+    .catch(function (e) {
+      showBackendError('Tidak bisa menghubungi ' + API_URL.slice(0, 55) + '... (' + esc(e.message) + '). Kemungkinan: deployment bukan akses "Anyone", atau ekstensi browser memblokir script.google.com. Coba buka di jendela incognito.');
+      loadDemo();
+    });
 }
 
 if (API_URL.indexOf('PASTE_URL') === 0) loadDemo(); else loadLive();
