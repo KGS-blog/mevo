@@ -195,7 +195,7 @@
 </footer>
 <script src="main.js"></script>
 <script>
-var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNUuPQAfj7cg6e7Ebnk3Op94vIU6W42/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNuUPAfj7cg6e7Ebnk3Op94vIU6W4/exec';
 
 var filterSel = document.getElementById('filter');
 var industryGroup = document.getElementById('industryGroup');
@@ -219,16 +219,28 @@ document.getElementById('simForm').addEventListener('submit', function (e) {
     + '&industry=' + encodeURIComponent(document.getElementById('industry').value);
   var errEl = document.getElementById('simError');
   errEl.classList.add('hidden');
-  fetch(API_URL + '?' + params)
-    .then(function (res) { return res.json(); })
+  var fullUrl = API_URL + '?' + params;
+  fetch(fullUrl)
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
     .then(function (data) {
       btn.disabled = false;
-      if (!data.ok) { errEl.textContent = 'Error: ' + (data.error || 'unknown'); errEl.classList.remove('hidden'); return; }
+      if (!data.ok) {
+        errEl.innerHTML = 'Backend menjawab: <strong>' + esc(String(data.error || 'ok=false')) + '</strong>';
+        errEl.classList.remove('hidden');
+        return;
+      }
+      errEl.classList.add('hidden');
       renderSim(data);
     })
     .catch(function (err) {
       btn.disabled = false;
-      errEl.textContent = 'Gagal menghubungi backend: ' + err.message;
+      console.warn('Fetch gagal:', fullUrl, err);
+      errEl.innerHTML = 'Gagal menghubungi backend: <strong>' + esc(err.message) + '</strong><br>' +
+        '<span style="font-size:12px">Klik untuk melihat jawaban mentah backend (buka di tab baru): ' +
+        '<a href="' + fullUrl + '" target="_blank" rel="noopener" style="color:#92400E;text-decoration:underline;word-break:break-all">' + fullUrl + '</a></span>';
       errEl.classList.remove('hidden');
     });
 });
