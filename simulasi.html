@@ -17,6 +17,7 @@
 .sim-echo .se-label{display:inline-block;min-width:220px;color:rgba(255,255,255,.75)}
 @media(max-width:767px){.sim-form-wrap{padding:24px 18px}.sim-echo .se-label{display:block;min-width:0}}
 </style>
+<base target="_blank">
 </head>
 <body>
 <header class="navbar" id="navbar">
@@ -63,6 +64,7 @@
             <label class="form-label" for="prov"><span data-en="Survey Province" data-id="Provinsi Survey">Survey Province</span> <span class="req">*</span></label>
             <input class="form-input" list="provList" id="prov" required placeholder="DKI Jakarta / Jawa Timur">
             <datalist id="provList"><option value="DKI Jakarta"><option value="Jawa Timur"></datalist>
+            <span style="font-size:12px;color:var(--medium)">Kepulauan Seribu otomatis dikecualikan untuk DKI Jakarta.</span>
           </div>
           <div class="form-group">
             <label class="form-label" for="type"><span data-en="Sampling Type" data-id="Type Sampling">Sampling Type</span> <span class="req">*</span></label>
@@ -90,6 +92,11 @@
           <div class="form-group">
             <label class="form-label" for="respPerPSU"><span data-en="Respondents per Selected PSU" data-id="Jumlah Responden per PSU Terpilih">Respondents per Selected PSU</span> <span class="req">*</span></label>
             <input class="form-input" type="number" id="respPerPSU" min="1" max="50" value="6" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sample"><span data-en="Sample Size (respondents)" data-id="Jumlah Sample (responden)">Sample Size (respondents)</span> <span class="req">*</span></label>
+            <input class="form-input" type="number" id="sample" min="1" value="300" required>
+            <span style="font-size:12px;color:var(--medium)">PSU dipilih = sample / responden per PSU (dibulatkan ke atas).</span>
           </div>
           <div class="form-group">
             <label class="form-label" for="psuLevel"><span data-en="Selected PSU Level" data-id="PSU Terpilih">Selected PSU Level</span> <span class="req">*</span></label>
@@ -195,7 +202,7 @@
 </footer>
 <script src="main.js"></script>
 <script>
-var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNUuPQAfj7cg6e7Ebnk3Op94vIU6W42/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbwus1oK3oQC6XYnfwjRaCDBQytl0HDB6ZjuCWNuUPAfj7cg6e7Ebnk3Op94vIU6W42/exec';
 
 // Status backend saat halaman dibuka
 fetch(API_URL + '?action=ping')
@@ -226,6 +233,7 @@ document.getElementById('simForm').addEventListener('submit', function (e) {
     + '&lainnya=' + encodeURIComponent(document.getElementById('lainnya').value.trim())
     + '&kelPerKec=' + encodeURIComponent(document.getElementById('kelPerKec').value)
     + '&respPerPSU=' + encodeURIComponent(document.getElementById('respPerPSU').value)
+    + '&sample=' + encodeURIComponent(document.getElementById('sample').value)
     + '&psuLevel=' + encodeURIComponent(document.getElementById('psuLevel').value)
     + '&filter=' + encodeURIComponent(filterSel.value)
     + '&industry=' + encodeURIComponent(document.getElementById('industry').value);
@@ -267,13 +275,16 @@ function renderSim(data) {
     + '<span class="se-label">Lainnya</span>: ' + esc(inp.lainnya) + '<br>'
     + '<span class="se-label">Kelurahan per Kecamatan</span>: ' + esc(inp.kelPerKec) + '<br>'
     + '<span class="se-label">Responden per PSU</span>: ' + esc(inp.respPerPSU) + '<br>'
+    + '<span class="se-label">Jumlah Sample</span>: ' + esc(inp.sample) + '<br>'
     + '<span class="se-label">PSU Terpilih</span>: ' + esc(inp.psuLevel) + '<br>'
     + '<span class="se-label">Filter Rotasi</span>: ' + esc(inp.filter) + (inp.filter.indexOf('IND') >= 0 ? ' (' + esc(inp.industry) + ')' : '') + '<br>'
     + '<span class="se-label">PSU ter-eksklusi (rotasi)</span>: ' + esc(sm.excludedPSU);
   document.getElementById('simEcho').innerHTML = echo;
-  document.getElementById('simSummary').textContent =
-    'Kota terpilih: ' + sm.kab + ' | Kecamatan: ' + sm.kecamatan + ' | Kelurahan terpilih: ' + sm.kelurahan
-    + ' | Riwayat Panel_Raw: ' + sm.historyRows + ' baris';
+  var sumText = 'PSU dibutuhkan: ' + (sm.psuNeeded || '-') + ' | terpilih: ' + sm.kelurahan
+    + ' | kecamatan: ' + sm.kecamatan + ' | kota terpakai: ' + (sm.kotaUsed || 1)
+    + ' | riwayat Panel_Raw: ' + sm.historyRows + ' baris';
+  if (sm.shortfall > 0) sumText += ' | <strong style="color:#DC2626">KURANG ' + sm.shortfall + ' PSU dari frame (pertimbangkan tambah kecamatan/kota atau longgarkan filter)</strong>';
+  document.getElementById('simSummary').innerHTML = sumText;
   document.getElementById('simBody').innerHTML = (data.rows || []).map(function (r) {
     var rtCell = (r.rt && r.rt !== '-') ? r.rt : (r.street ? esc(r.street) : '-');
     return '<tr><td class="cell-group">' + esc(r.prov) + '</td><td>' + esc(r.kab) + '</td><td>' + esc(r.kec) + '</td><td>' + esc(r.kel) + '</td><td>' + esc(r.rw) + '</td><td>' + rtCell + '</td><td>' + esc(r.resp) + '</td></tr>';
