@@ -286,15 +286,27 @@ function showBackendError(msg) {
     '<br><span style="font-size:12px">Halaman menampilkan data demo. Perbaiki backend lalu refresh.</span>';
 }
 
-function loadLive() {
-  fetchWithTimeout(API_URL + '?action=fieldwork', 20000)
+function loadLive(attempt) {
+  attempt = attempt || 1;
+  fetchWithTimeout(API_URL + '?action=fieldwork', 30000)
     .then(function (data) {
-      if (!data) { showBackendError('Respons kosong dari ' + API_URL.slice(0, 60) + '...'); loadDemo(); return; }
+      if (!data) { showBackendError('Respons kosong dari backend.'); loadDemo(); return; }
       if (!data.ok) { showBackendError(esc(String(data.error || 'ok=false tanpa pesan'))); loadDemo(); return; }
       render(data); setMode(true);
     })
     .catch(function (e) {
-      showBackendError('Tidak bisa menghubungi ' + API_URL.slice(0, 55) + '... (' + esc(e.message) + '). Kemungkinan: deployment bukan akses "Anyone", atau ekstensi browser memblokir script.google.com. Coba buka di jendela incognito.');
+      if (attempt === 1) {
+        // Cold start GAS: percobaan pertama sering lambat/gagal. Coba sekali lagi.
+        var note = document.getElementById('demoNote');
+        note.classList.remove('hidden');
+        note.style.background = '#FEF3C7';
+        note.style.color = '#92400E';
+        note.innerHTML = '<strong>Mencoba ulang...</strong> backend lambat merespons (percobaan 2 dari 2).';
+        setTimeout(function () { loadLive(2); }, 1500);
+        return;
+      }
+      showBackendError('Backend tidak terjangkau setelah 2 percobaan (' + esc(e.message) +
+        '). Kalau masih DEMO, buka di jendela incognito; jika tetap gagal, salin TEKS KOTAK MERAH INI dan kirim ke tim MEVO — isinya penyebab persisnya.');
       loadDemo();
     });
 }
