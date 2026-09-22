@@ -106,11 +106,8 @@
 
     <div class="attr-block reveal">
       <h3 data-en="Working Areas by Sub-district" data-id="Wilayah Kerja per Kelurahan">Working Areas by Sub-district</h3>
-      <p class="map-sub" data-en="Areas where MEVO has conducted fieldwork, with PSU and respondent counts" data-id="Wilayah tempat MEVO telah melaksanakan fieldwork, dengan jumlah PSU dan responden">Areas where MEVO has conducted fieldwork, with PSU and respondent counts</p>
-      <div class="quota-table-wrap"><table class="quota-table">
-        <thead><tr><th data-en="Province" data-id="Provinsi">Province</th><th>Kab/Kodya</th><th data-en="District" data-id="Kecamatan">District</th><th data-en="Sub-district" data-id="Kelurahan">Sub-district</th><th data-en="PSU Completed" data-id="PSU Dikerjakan">PSU Completed</th><th data-en="Respondents" data-id="Responden">Respondents</th></tr></thead>
-        <tbody id="panelBody"></tbody>
-      </table></div>
+      <p class="map-sub" data-en="Areas where MEVO has completed fieldwork — click a province to expand" data-id="Wilayah tempat MEVO telah menyelesaikan fieldwork — klik provinsi untuk membuka">Areas where MEVO has conducted fieldwork, with PSU and respondent counts</p>
+      <div id="panelGroups"></div>
     </div>
 
     <div class="demo-note hidden" id="demoNote">
@@ -242,9 +239,36 @@ function render(data) {
     return '<tr><td class="cell-group">' + p.prov + '</td><td>' + p.psuWorked + '</td><td>' + p.kelurahan + '</td><td>' + p.respondents + '</td></tr>';
   }).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--medium)">No data yet</td></tr>';
 
-  document.getElementById('panelBody').innerHTML = (data.panels || []).map(function (p) {
-    return '<tr><td class="cell-group">' + p.prov + '</td><td>' + p.kab + '</td><td>' + p.kec + '</td><td>' + p.kel + '</td><td>' + p.psuWorked + '</td><td>' + p.respondents + '</td></tr>';
-  }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--medium)">No data yet</td></tr>';
+  (function () {
+    var groups = {};
+    (data.panels || []).forEach(function (p) {
+      (groups[p.prov || 'Lainnya'] = groups[p.prov || 'Lainnya'] || []).push(p);
+    });
+    var provKeys = Object.keys(groups);
+    var html = provKeys.map(function (prov, gi) {
+      var ps = groups[prov];
+      var tot = ps.reduce(function (a, p) { return a + p.psuWorked; }, 0);
+      var rows = ps.map(function (p) {
+        return '<tr><td>' + esc(p.kab) + '</td><td>' + esc(p.kec) + '</td><td class="cell-group">' + esc(p.kel) + '</td><td>' + p.psuWorked + '</td></tr>';
+      }).join('');
+      return '<div class="pg-group' + (gi === 0 ? ' open' : '') + '">' +
+        '<button class="pg-head" aria-expanded="' + (gi === 0) + '"><span>' + esc(prov) +
+        ' <span class="pg-count">— ' + ps.length + ' kelurahan · ' + tot + ' PSU</span></span>' +
+        '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>' +
+        '<div class="pg-body"><div class="quota-table-wrap"><table class="quota-table">' +
+        '<thead><tr><th>Kab/Kodya</th><th data-en="District" data-id="Kecamatan">District</th><th data-en="Sub-district" data-id="Kelurahan">Sub-district</th><th data-en="PSU Completed" data-id="PSU Dikerjakan">PSU Completed</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table></div></div></div>';
+    }).join('');
+    var host = document.getElementById('panelGroups');
+    host.innerHTML = html || '<p style="text-align:center;color:var(--medium)">No data yet</p>';
+    host.querySelectorAll('.pg-head').forEach(function (h) {
+      h.addEventListener('click', function () {
+        var g = h.parentElement;
+        g.classList.toggle('open');
+        h.setAttribute('aria-expanded', g.classList.contains('open'));
+      });
+    });
+  })();
 
   var pts = data.points || [];
   var tJkt = initMap('mapJakarta', [-6.23, 106.83], 11, pts.filter(function (p) { return isJakarta(p.prov) || isJakarta(p.kab); }));

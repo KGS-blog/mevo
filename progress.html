@@ -28,7 +28,6 @@
 .status-chip{display:inline-block;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:600;background:#FEF3C7;color:#92400E}
 @media(max-width:767px){.tl-phase{min-width:100%}}
 </style>
-<base target="_blank">
 </head>
 <body>
 <header class="navbar" id="navbar">
@@ -99,7 +98,7 @@
 
     <div class="attr-block reveal">
       <h3 data-en="Quota per Attribute" data-id="Kuota per Atribut">Quota per Attribute</h3>
-      <p class="map-sub" data-en="Demo structure following the study screener (A1-A6)" data-id="Struktur demo mengikuti skreener studi (A1–A6)">Demo structure following the study screener (A1-A6)</p>
+      <p class="map-sub" data-en="Demo structure following the study screener (A1-A3)" data-id="Struktur demo mengikuti skreener studi (A1–A3)">Demo structure following the study screener (A1-A3)</p>
       <div id="quotaBlocks"></div>
     </div>
 
@@ -207,14 +206,6 @@ var QUOTA = [
   { code:'A3', name:'LSM', ref:'SCR1.Q6', options:[
     {label:'LSM 4-6', pct:52, target:187, done:125},
     {label:'LSM 7+', pct:48, target:173, done:116} ]},
-  { code:'A4', name:'Cara Mencuci', ref:'SCR1.Q13', options:[
-    {label:'Mencuci dengan tangan', pct:70, target:252, done:169},
-    {label:'Mencuci dengan mesin cuci', pct:30, target:108, done:72} ]},
-  { code:'A5', name:'Kemasan – P6M', ref:'SCR1.Q17', options:[
-    {label:'Sachet User', pct:100, target:360, done:241} ]},
-  { code:'A6', name:'Pelembut Pakaian BUMO – P6M', ref:'SCR1.Q22', options:[
-    {label:'Molto Sunshine Bloom (Pink)', pct:50, target:180, done:120},
-    {label:'Downy Floral Pink', pct:50, target:180, done:121} ]}
 ];
 
 var PSU = [

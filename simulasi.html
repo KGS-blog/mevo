@@ -221,10 +221,22 @@ filterSel.addEventListener('change', function () {
   industryGroup.classList.toggle('hidden', filterSel.value.indexOf('IND') < 0);
 });
 
+function simBtnLoading(on) {
+  var btn = document.getElementById('simBtn');
+  if (on) {
+    btn.disabled = true;
+    btn.dataset.orig = btn.innerHTML;
+    var lang = document.documentElement.getAttribute('lang') === 'id';
+    btn.innerHTML = '<span class="spinner"></span>' + (lang ? 'Memproses…' : 'Processing…');
+  } else {
+    btn.disabled = false;
+    if (btn.dataset.orig) btn.innerHTML = btn.dataset.orig;
+  }
+}
+
 document.getElementById('simForm').addEventListener('submit', function (e) {
   e.preventDefault();
-  var btn = document.getElementById('simBtn');
-  btn.disabled = true;
+  simBtnLoading(true);
   var params = 'action=simulate'
     + '&prov=' + encodeURIComponent(document.getElementById('prov').value.trim())
     + '&type=' + encodeURIComponent(document.getElementById('type').value)
@@ -245,7 +257,7 @@ document.getElementById('simForm').addEventListener('submit', function (e) {
       return res.json();
     })
     .then(function (data) {
-      btn.disabled = false;
+      simBtnLoading(false);
       if (!data.ok) {
         errEl.innerHTML = 'Backend menjawab: <strong>' + esc(String(data.error || 'ok=false')) + '</strong>';
         errEl.classList.remove('hidden');
@@ -255,7 +267,7 @@ document.getElementById('simForm').addEventListener('submit', function (e) {
       renderSim(data);
     })
     .catch(function (err) {
-      btn.disabled = false;
+      simBtnLoading(false);
       console.warn('Fetch gagal:', fullUrl, err);
       errEl.innerHTML = 'Gagal menghubungi backend: <strong>' + esc(err.message) + '</strong><br>' +
         '<span style="font-size:12px">Klik untuk melihat jawaban mentah backend (buka di tab baru): ' +

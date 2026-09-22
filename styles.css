@@ -279,3 +279,16 @@ table.quota-table{width:100%;border-collapse:collapse;min-width:760px}
 .lang-switch{background:transparent;border:1.5px solid var(--navy);color:var(--navy);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .2s ease;margin-left:16px;min-width:44px}
 .lang-switch:hover{background:var(--navy);color:var(--white)}
 .nav-mobile-lang{display:block;margin-top:20px;background:none;border:none;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--gold);cursor:pointer;padding:12px 0;text-align:left}
+
+/* Spinner proses (simulasi) */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#0A1628;border-radius:50%;animation:spinRotate .7s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes spinRotate{to{transform:rotate(360deg)}}
+
+/* Working areas: grup expandable per provinsi */
+.pg-head{width:100%;background:var(--white);border:1px solid var(--soft);border-radius:12px;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:var(--navy);margin-bottom:10px;box-shadow:0 4px 20px rgba(0,0,0,.05);transition:box-shadow .2s}
+.pg-head:hover{box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.pg-head .pg-count{font-weight:400;font-size:13px;color:var(--medium)}
+.pg-head .chev{width:18px;height:18px;color:var(--gold);transition:transform .3s ease;flex-shrink:0;margin-left:12px}
+.pg-group.open .pg-head .chev{transform:rotate(180deg)}
+.pg-body{display:none;margin:0 0 24px}
+.pg-group.open .pg-body{display:block}
